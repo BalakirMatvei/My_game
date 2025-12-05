@@ -1,4 +1,4 @@
-from class_Man import Man
+from class_man import Man
 
 ACTIONS_MENU = {
     "self": "print",
