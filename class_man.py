@@ -4,7 +4,7 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
 
 
 class Man:
-    ranglist = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster"]
+    RangList = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster"]
 
     def __init__(self, name):
         self.name = name
@@ -50,13 +50,16 @@ class Man:
         if self.tiredness < TirednessParameters.MAXIMUM:
             self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
             if self.fullness >= WorkParameters.MINIMUM_FULLNESS:
-                if self.intelligence < IntelligenceLVL.MEDIUM:
-                    self.money += SalaryParameters.MINIMUM
-                elif self.intelligence < IntelligenceLVL.HIGH:
+                if self.intelligence >= IntelligenceLVL.EXTRA_HIGH:
+                    self.money += SalaryParameters.EXTRA_HIGH
+                elif self.intelligence >= IntelligenceLVL.VERY_HIGH:
+                    self.money += SalaryParameters.VERY_HIGH
+                elif self.intelligence >= IntelligenceLVL.HIGH:
+                    self.money += SalaryParameters.HIGH
+                elif self.intelligence >= IntelligenceLVL.MEDIUM:
                     self.money += SalaryParameters.MEDIUM
                 else:
-                    self.money += SalaryParameters.HIGH.value
-                self.fullness -= WorkParameters.REDUCE_FULLNESS
+                    self.money += SalaryParameters.MINIMUM
                 print(f'Вы заработали денег!\nбаланс - {self.money}$\nсытость - {self.fullness}')
             else:
                 self.money += SalaryParameters.MINIMUM

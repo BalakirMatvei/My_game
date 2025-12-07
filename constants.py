@@ -15,6 +15,8 @@ class WorkParameters(IntEnum):
 class IntelligenceLVL(IntEnum):
     MEDIUM = 100
     HIGH = 200
+    VERY_HIGH = 300
+    EXTRA_HIGH= 500
 
 
 class EatParameters(IntEnum):
@@ -54,8 +56,10 @@ class SleepParameters(IntEnum):
 
 class SalaryParameters(IntEnum):
     MINIMUM = 20
-    MEDIUM = 40
-    HIGH = 80
+    MEDIUM = 50
+    HIGH = 100
+    VERY_HIGH = 150
+    EXTRA_HIGH = 250
 
 
 class TirednessParameters(IntEnum):
