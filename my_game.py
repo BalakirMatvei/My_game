@@ -35,6 +35,8 @@ while True:
             getattr(man, ACTIONS_MENU[action])()
             if not getattr(man, 'alive'):
                 break
+            if getattr(man, 'rang') == "Grandmaster":
+                break
         else:
             print(f"Неизвестное действие - {action}")
     else:

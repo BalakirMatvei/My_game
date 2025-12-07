@@ -1,6 +1,6 @@
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
-    SalaryParameters, TirednessParameters
+    SalaryParameters, TirednessParameters, RangParameters
 
 
 class Man:
@@ -18,12 +18,12 @@ class Man:
         self.alive = True
         self.tiredness = 0
         self.r = 0
-        self.rang = ranglist[r]
+        self.rang = "Bronze"
 
     def __str__(self):
         return f"{self.name}, сытость - {self.fullness}, hp - {self.health}" \
                f", баланс - {self.money}$, еда - {self.food}, " \
-               f"сила - {self.strength}, интеллект - {self.intelligence}, усталость - {self.tiredness} "
+               f"сила - {self.strength}, интеллект - {self.intelligence}, усталость - {self.tiredness}, Ранг - {self.rang} "
 
     def print(self):
         print(self)
@@ -107,6 +107,20 @@ class Man:
 
     def sleep(self):
         self.day_counter += 1
+        if self.money >= RangParameters.MONEY_GRANDMASTER:
+            self.r = 6
+        elif self.money >= RangParameters.MONEY_MASTER:
+            self.r = 5
+        elif self.money >= RangParameters.MONEY_DIAMOND:
+            self.r = 4
+        elif self.money >= RangParameters.MONEY_PLATINUM:
+            self.r = 3
+        elif self.money >= RangParameters.MONEY_GOLD:
+            self.r = 2
+        elif self.money >= RangParameters.MONEY_SILVER:
+            self.r = 1
+        else:
+            self.r = 0
         self.fullness -= SleepParameters.REDUCE_FULLNESS
         self.tiredness = 0
         if self.fullness <= 0:
@@ -118,6 +132,12 @@ class Man:
             Man.death(self)
         if self.health > SleepParameters.MAXIMUM_HEALTH:
             self.health = SleepParameters.MAXIMUM_HEALTH.value
+        self.rang = self.ranglist[self.r]
+        if self.rang == "Grandmaster":
+            print("Поздравляю, вы достигли ранга Grandmaster и прошли игру!\n"
+                  "Спасибо за игру! ")
+        else:
+            print(f" Ваш ранг - {self.rang}")
 
     def commands(self):
         print("Возможные действия:\n"

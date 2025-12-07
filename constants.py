@@ -61,3 +61,11 @@ class SalaryParameters(IntEnum):
 class TirednessParameters(IntEnum):
     FOR_SINGLE_ACTIVE = 10
     MAXIMUM = 100
+
+class RangParameters(IntEnum):
+    MONEY_SILVER = 100
+    MONEY_GOLD = 250
+    MONEY_PLATINUM = 500
+    MONEY_DIAMOND = 750
+    MONEY_MASTER = 1000
+    MONEY_GRANDMASTER = 2000
