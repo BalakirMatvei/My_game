@@ -4,11 +4,12 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
 
 
 class Man:
+    ranglist = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster"]
 
     def __init__(self, name):
         self.name = name
-        self.fullness = 0
-        self.money = 1000
+        self.fullness = 80
+        self.money = 50
         self.health = 100
         self.food = 100
         self.strength = 50
@@ -16,6 +17,8 @@ class Man:
         self.day_counter = 1
         self.alive = True
         self.tiredness = 0
+        self.r = 0
+        self.rang = ranglist[r]
 
     def __str__(self):
         return f"{self.name}, сытость - {self.fullness}, hp - {self.health}" \
@@ -114,4 +117,17 @@ class Man:
         if self.health <= 0:
             Man.death(self)
         if self.health > SleepParameters.MAXIMUM_HEALTH:
-            self.health = SleepParameters.MAXIMUM_HEALTH
+            self.health = SleepParameters.MAXIMUM_HEALTH.value
+
+    def commands(self):
+        print("Возможные действия:\n"
+              "self - информация о себе\n"
+              "eat - поесть\n"
+              "shopping - купить еды\n"
+              "work - пойти работать\n"
+              "gym - пойти в качалку\n"
+              "study - пойти на учёбу\n"
+              "sleep - пойти спать\n"
+              "exit - выйти из игры\n"
+              "help - список действий\n")
+
