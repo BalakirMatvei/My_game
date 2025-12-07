@@ -7,7 +7,8 @@ ACTIONS_MENU = {
     "work": "work",
     "gym": "gym",
     "study": "study",
-    "sleep": "sleep"
+    "sleep": "sleep",
+    "help": "commands"
 }
 
 character_name = input('Введите имя персонажа: ')
@@ -21,7 +22,9 @@ print("Возможные действия:\n"
       "gym - пойти в качалку\n"
       "study - пойти на учёбу\n"
       "sleep - пойти спать\n"
-      "exit - выйти из игры\n")
+      "exit - выйти из игры\n"
+      "help - список действий\n")
+
 action = ""
 while True:
     if getattr(man, 'alive') and action == "sleep":
