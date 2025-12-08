@@ -8,7 +8,8 @@ ACTIONS_MENU = {
     "gym": "gym",
     "study": "study",
     "sleep": "sleep",
-    "help": "commands"
+    "help": "commands",
+    "heal": "heal",
 }
 
 character_name = input('Введите имя персонажа: ')
@@ -22,6 +23,7 @@ print("Возможные действия:\n"
       "gym - пойти в качалку\n"
       "study - пойти на учёбу\n"
       "sleep - пойти спать\n"
+      "heal - полечиться у врача\n"
       "exit - выйти из игры\n"
       "help - список действий\n")
 

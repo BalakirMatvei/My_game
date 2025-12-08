@@ -16,7 +16,7 @@ class IntelligenceLVL(IntEnum):
     MEDIUM = 100
     HIGH = 200
     VERY_HIGH = 300
-    EXTRA_HIGH= 500
+    EXTRA_HIGH = 500
 
 
 class EatParameters(IntEnum):
@@ -68,8 +68,12 @@ class TirednessParameters(IntEnum):
 
 class RangParameters(IntEnum):
     MONEY_SILVER = 100
-    MONEY_GOLD = 250
-    MONEY_PLATINUM = 500
-    MONEY_DIAMOND = 750
-    MONEY_MASTER = 1000
-    MONEY_GRANDMASTER = 2000
+    MONEY_GOLD = 500
+    MONEY_PLATINUM = 1000
+    MONEY_DIAMOND = 5000
+    MONEY_MASTER = 10000
+    MONEY_GRANDMASTER = 25000
+
+class HealParameters(IntEnum):
+    HEALTH_INCREASE = 30
+    MONEY_REDUCE = 50

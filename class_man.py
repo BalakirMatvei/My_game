@@ -1,6 +1,6 @@
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
-    SalaryParameters, TirednessParameters, RangParameters
+    SalaryParameters, TirednessParameters, RangParameters, HealParameters
 
 
 class Man:
@@ -44,7 +44,7 @@ class Man:
             self.money -= ShoppingParameters.REDUCE_MONEY
             print(f'Вы купили еды!\nеды осталось - {self.food}\nбаланс - {self.money}$')
         else:
-            print(f'у вас нет денег:(\nбаланс - {self.money}$')
+            print(f'у вас нет денег:(\nбаланс - {self.money}$\nстоимость еды - {ShoppingParameters.MINIMUM_MONEY}$)')
 
     def work(self):
         if self.tiredness < TirednessParameters.MAXIMUM:
@@ -154,3 +154,12 @@ class Man:
               "exit - выйти из игры\n"
               "help - список действий\n")
 
+    def heal(self):
+        if self.money >= HealParameters.MONEY_REDUCE:
+            self.health += HealParameters.HEALTH_INCREASE
+            self.money -= HealParameters.MONEY_REDUCE
+            if self.health > SleepParameters.MAXIMUM_HEALTH:
+                self.health = SleepParameters.MAXIMUM_HEALTH.value
+            print(f"Вы полечились у врача!\nhp - {self.health}\n баланс - {self.money}$")
+        else:
+            print(f"У вас нет денег\nбаланс - {self.money}$\nстоимость лечения - {HealParameters.MONEY_REDUCE.value}$")
