@@ -77,3 +77,11 @@ class RangParameters(IntEnum):
 class HealParameters(IntEnum):
     HEALTH_INCREASE = 30
     MONEY_REDUCE = 50
+
+class AgeParameters(IntEnum):
+    ADULT = 35
+    OLD = 60
+    LIMITATION_STRENGTH_ADULT = 8
+    LIMITATION_STRENGTH_OLD = 5
+    REDUCE_FULLNESS_ADULTS = 15
+    REDUCE_FULLNESS_OLDS = 25
