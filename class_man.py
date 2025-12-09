@@ -1,8 +1,7 @@
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
-    AgeParameters, GIFT_MONEY
-
+    AgeParameters, BD_GIFT_MONEY
 
 class Man:
     RangList = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster"]
@@ -47,6 +46,35 @@ class Man:
             print(f'Вы купили еды!\nеды осталось - {self.food}\nбаланс - {self.money}$')
         else:
             print(f'у вас нет денег:(\nбаланс - {self.money}$\nстоимость еды - {ShoppingParameters.MINIMUM_MONEY}$)')
+
+    def gym(self):
+        if self.tiredness < TirednessParameters.MAXIMUM:
+            if self.age >= AgeParameters.OLD:
+                if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
+                    self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
+                    self.strength += AgeParameters.LIMITATION_STRENGTH_OLD
+                    self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
+                    print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
+                else:
+                    print(f'Вы слишком голодны\nсытость - {self.fullness}\nсытости потратится - {AgeParameters.REDUCE_FULLNESS_OLDS}')
+            elif self.age >= AgeParameters.ADULT:
+                if self.fullness >= AgeParameters.REDUCE_FULLNESS_ADULTS:
+                    self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
+                    self.strength += AgeParameters.LIMITATION_STRENGTH_ADULT
+                    self.fullness -= AgeParameters.REDUCE_FULLNESS_ADULTS
+                    print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
+                else:
+                    print(f'Вы слишком голодны\nсытость - {self.fullness}\nсытости потратится - {AgeParameters.REDUCE_FULLNESS_ADULTS}')
+            else:
+                if self.fullness >= GymParameters.MINIMUM_FULLNESS:
+                     self.strength += GymParameters.INCREASE_STRENGTH
+                     self.fullness -= GymParameters.REDUCE_FULLNESS
+                     print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
+                else:
+                     print(f'у вас нет сил:(\nсытость - {self.fullness}, сытости потратится - {GymParameters.REDUCE_FULLNESS})')
+        else:
+            print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
+                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать")
 
     def work(self):
         if self.tiredness < TirednessParameters.MAXIMUM:
@@ -95,35 +123,6 @@ class Man:
                     else:
                         print(
                             f'Ого! Вы пошли на работу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nбаланс - {self.money}$')
-        else:
-            print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
-                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать")
-
-    def gym(self):
-        if self.tiredness < TirednessParameters.MAXIMUM:
-            if self.age >= AgeParameters.OLD:
-                if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
-                    self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
-                    self.strength += AgeParameters.LIMITATION_STRENGTH_OLD
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
-                    print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
-                else:
-                    print(f'Вы слишком голодны\nсытость - {self.fullness}\nсытости потратится - {AgeParameters.REDUCE_FULLNESS_OLDS}')
-            elif self.age >= AgeParameters.ADULT:
-                if self.fullness >= AgeParameters.REDUCE_FULLNESS_ADULTS:
-                    self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
-                    self.strength += AgeParameters.LIMITATION_STRENGTH_ADULT
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_ADULTS
-                    print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
-                else:
-                    print(f'Вы слишком голодны\nсытость - {self.fullness}\nсытости потратится - {AgeParameters.REDUCE_FULLNESS_ADULTS}')
-            else:
-                if self.fullness >= GymParameters.MINIMUM_FULLNESS:
-                     self.strength += GymParameters.INCREASE_STRENGTH
-                     self.fullness -= GymParameters.REDUCE_FULLNESS
-                     print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
-                else:
-                     print(f'у вас нет сил:(\nсытость - {self.fullness}, сытости потратится - {GymParameters.REDUCE_FULLNESS})')
         else:
             print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
                   f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать")
@@ -177,7 +176,7 @@ class Man:
                   f"Вам исполнилось {self.age}\n"
                   f"Небольшой подарок от нас!\n"
                   f"+ 100$")
-            self.money += GIFT_MONEY
+            self.money += BD_GIFT_MONEY
             print(f"баланс - {self.money}")
         if self.money >= RangParameters.MONEY_GRANDMASTER:
             self.r = 6
@@ -232,3 +231,6 @@ class Man:
             print(f"Вы полечились у врача!\nhp - {self.health}\n баланс - {self.money}$")
         else:
             print(f"У вас нет денег\nбаланс - {self.money}$\nстоимость лечения - {HealParameters.MONEY_REDUCE.value}$")
+
+    def fight(self):
+        pass
