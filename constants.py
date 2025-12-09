@@ -4,13 +4,11 @@ from enum import Enum
 class IntEnum(int, Enum):
     pass
 
-
 class WorkParameters(IntEnum):
     MINIMUM_FULLNESS = 20
     MINIMUM_HEALTH = 20
     REDUCE_FULLNESS = 10
     REDUCE_HEALTH = 20
-
 
 class IntelligenceLVL(IntEnum):
     MEDIUM = 100
@@ -18,25 +16,21 @@ class IntelligenceLVL(IntEnum):
     VERY_HIGH = 300
     EXTRA_HIGH = 500
 
-
 class EatParameters(IntEnum):
     MAXIMUM_FULLNESS = 100
     MINIMUM_FOOD = 10
     INCREASE_FULLNESS = 10
     REDUCE_FOOD = 10
 
-
 class ShoppingParameters(IntEnum):
     MINIMUM_MONEY = 10
     INCREASE_FOOD = 10
     REDUCE_MONEY = 10
 
-
 class GymParameters(IntEnum):
     MINIMUM_FULLNESS = 30
     INCREASE_STRENGTH = 10
     REDUCE_FULLNESS = 20
-
 
 class StudyParameters(IntEnum):
     MINIMUM_FULLNESS = 10
@@ -45,7 +39,6 @@ class StudyParameters(IntEnum):
     REDUCE_FULLNESS = 10
     REDUCE_HEALTH = 20
 
-
 class SleepParameters(IntEnum):
     MAXIMUM_HEALTH = 100
     MINIMUM_FULLNESS = 20
@@ -53,14 +46,12 @@ class SleepParameters(IntEnum):
     REDUCE_FULLNESS = 10
     REDUCE_HEALTH = 50
 
-
 class SalaryParameters(IntEnum):
     MINIMUM = 20
     MEDIUM = 50
     HIGH = 100
     VERY_HIGH = 150
     EXTRA_HIGH = 250
-
 
 class TirednessParameters(IntEnum):
     FOR_SINGLE_ACTIVE = 10
