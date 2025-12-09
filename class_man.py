@@ -1,7 +1,7 @@
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
-    AgeParameters
+    AgeParameters, GIFT_MONEY
 
 
 class Man:
@@ -173,6 +173,12 @@ class Man:
         self.day_counter += 1
         if self.day_counter % 50 == 0:
             self.age += 1
+            print(f"Сегодня ваш день рождения, поздравляем!!!\n"
+                  f"Вам исполнилось {self.age}\n"
+                  f"Небольшой подарок от нас!\n"
+                  f"+ 100$")
+            self.money += GIFT_MONEY
+            print(f"баланс - {self.money}")
         if self.money >= RangParameters.MONEY_GRANDMASTER:
             self.r = 6
         elif self.money >= RangParameters.MONEY_MASTER:
@@ -203,7 +209,7 @@ class Man:
             print(f"Поздравляю, вы достигли ранга Grandmaster в возрасте {self.age} и прошли игру!\n"
                   "Спасибо за игру! ")
         else:
-            print(f" Ваш ранг - {self.rang}")
+            print(f"Ваш ранг - {self.rang}")
 
     def commands(self):
         print("Возможные действия:\n"
