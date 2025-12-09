@@ -1,7 +1,9 @@
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
-    AgeParameters, BD_GIFT_MONEY
+    AgeParameters, BD_GIFT_MONEY, FightParameters
+
+import random
 
 class Man:
     RangList = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster"]
@@ -35,9 +37,9 @@ class Man:
             self.fullness += EatParameters.INCREASE_FULLNESS
             if self.fullness > EatParameters.MAXIMUM_FULLNESS:
                 self.fullness = EatParameters.MAXIMUM_FULLNESS
+            print(f'Вы поели\n сытость - {self.fullness}\nеды осталось - {self.food}')
         else:
             print(f'у вас нет еды\nеды осталось - {self.food}')
-        print(f'Вы поели\n сытость - {self.fullness}\nеды осталось - {self.food}')
 
     def shopping(self):
         if self.money >= ShoppingParameters.MINIMUM_MONEY:
@@ -74,7 +76,7 @@ class Man:
                      print(f'у вас нет сил:(\nсытость - {self.fullness}, сытости потратится - {GymParameters.REDUCE_FULLNESS})')
         else:
             print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
-                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать")
+                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
 
     def work(self):
         if self.tiredness < TirednessParameters.MAXIMUM:
@@ -125,7 +127,7 @@ class Man:
                             f'Ого! Вы пошли на работу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nбаланс - {self.money}$')
         else:
             print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
-                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать")
+                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
 
     def study(self):
         if self.tiredness < TirednessParameters.MAXIMUM:
@@ -162,7 +164,7 @@ class Man:
                 print(f'Вы стали умнее!\nинтеллект - {self.intelligence}\nсытость - {self.fullness}')
         else:
             print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
-                f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать")
+                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
 
     def death(self):
         self.alive = False
@@ -197,8 +199,6 @@ class Man:
         if self.fullness <= 0:
             self.health -= SleepParameters.REDUCE_HEALTH
             self.fullness = 0
-        else:
-            self.health += SleepParameters.INCREASE_HEALTH
         if self.health <= 0:
             Man.death(self)
         if self.health > SleepParameters.MAXIMUM_HEALTH:
@@ -218,6 +218,7 @@ class Man:
               "work - пойти работать\n"
               "gym - пойти в качалку\n"
               "study - пойти на учёбу\n"
+              "fight - участвовать в бою"
               "sleep - пойти спать\n"
               "exit - выйти из игры\n"
               "help - список действий\n")
@@ -228,9 +229,44 @@ class Man:
             self.money -= HealParameters.MONEY_REDUCE
             if self.health > SleepParameters.MAXIMUM_HEALTH:
                 self.health = SleepParameters.MAXIMUM_HEALTH.value
-            print(f"Вы полечились у врача!\nhp - {self.health}\n баланс - {self.money}$")
+            print(f"Вы полечились у врача!\nhp - {self.health}\nбаланс - {self.money}$")
         else:
             print(f"У вас нет денег\nбаланс - {self.money}$\nстоимость лечения - {HealParameters.MONEY_REDUCE.value}$")
 
     def fight(self):
-        pass
+        if self.tiredness < TirednessParameters.MAXIMUM.value:
+            if self.fullness >= FightParameters.MINIMUM_FULLNESS.value:
+                self.tiredness = TirednessParameters.MAXIMUM.value
+                self.fullness -= FightParameters.FULLNESS_REDUCE
+                if self.strength >= FightParameters.STRENGTH_INCREASED_CHANCE:
+                    if random.randint(0, 100) <= FightParameters.INCREASED_WIN_CHANCE:
+                        self.money += FightParameters.MONEY_WIN
+                        self.health = FightParameters.HEALTH_REDUCE_WIN.value
+                        if self.health == 0:
+                            self.health = FightParameters.HEALTH_AFTER_LOOS.value
+                        print(f"Вы выиграли бой местной лиги!!!\nВаш гонорар - {FightParameters.MONEY_WIN.value}$\nВы сильно устали, советуем поесть")
+                    else:
+                        self.money += FightParameters.MONEY_LOOS
+                        self.health = FightParameters.HEALTH_AFTER_LOOS.value
+                        print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOS.value}$\nВы сильно устали, советуем поесть")
+                elif self.strength >= FightParameters.MINIMUM_STRENGTH:
+                    if random.randint(0, 100) <= FightParameters.DEFAULT_WIN_CHANCE:
+                        self.money += FightParameters.MONEY_WIN
+                        self.health -= FightParameters.HEALTH_REDUCE_WIN.value
+                        if self.health == 0:
+                            self.health = FightParameters.HEALTH_AFTER_LOOS.value
+                        print(f"Вы выиграли бой местной лиги!!!\nВаш гонорар - {FightParameters.MONEY_WIN.value}$\nВы сильно устали, советуем поесть")
+                    else:
+                        self.money += FightParameters.MONEY_LOOS
+                        self.health = FightParameters.HEALTH_AFTER_LOOS.value
+                        print(
+                            f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOS.value}$\nВы сильно устали, советуем поесть")
+                else:
+                    print(f"Вы недостаточно сильны для участия в боях местной лиги:(\n"
+                          f"Ваша сила - {self.strength}\n"
+                          f"Минимальная сила для участия - {FightParameters.MINIMUM_STRENGTH.value}")
+            else:
+                print(f"У вас мало сил для боя\nсытость - {self.fullness}\nминимальна сытость для боя - {FightParameters.MINIMUM_FULLNESS.value}")
+        else:
+            print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
+                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
