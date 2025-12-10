@@ -90,3 +90,10 @@ class FightParameters(IntEnum):
     INCREASED_WIN_CHANCE = 75
     MONEY_WIN = 500
     MONEY_LOOS = 200
+    STRESS_LOOS = 15
+
+class StressParameters(IntEnum):
+    STRESS_INCREASE = 10
+    STRESS_REDUCE = 10
+    MAXIMUM = 100
+    HEALTH_REDUCE = 5
