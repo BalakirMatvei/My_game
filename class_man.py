@@ -11,7 +11,7 @@ class Man:
 
     def __init__(self, name):
         self.name = name
-        self.fullness = 100
+        self.fullness = 80
         self.money = 50
         self.health = 100
         self.food = 100
@@ -23,7 +23,7 @@ class Man:
         self.r = 0
         self.rang = "Bronze"
         self.age = 18
-        self.stress = 90
+        self.stress = 0
 
     def __str__(self):
         return f"{self.name}, возраст - {self.age}, сытость - {self.fullness}, hp - {self.health}" \
