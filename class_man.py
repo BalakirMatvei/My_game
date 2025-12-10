@@ -4,6 +4,7 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     AgeParameters, BD_GIFT_MONEY, FightParameters
 
 import random
+import pickle
 
 class Man:
     RangList = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster"]
@@ -209,6 +210,7 @@ class Man:
                   "Спасибо за игру! ")
         else:
             print(f"Ваш ранг - {self.rang}")
+        self.save()
 
     def commands(self):
         print("Возможные действия:\n"
@@ -270,3 +272,11 @@ class Man:
         else:
             print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
                   f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
+
+    def save(self):
+        with open('man.pkl', 'wb') as f:
+            pickle.dump(self, f)
+
+    def load(self):
+        with open('man.pkl', 'rb') as f:
+            return pickle.load(f)

@@ -13,21 +13,44 @@ ACTIONS_MENU = {
     "fight": "fight",
 }
 
-character_name = input('Введите имя персонажа: ')
-print(f"Добро пожаловать, {character_name}")
-man = Man(character_name)
-print("Возможные действия:\n" 
-      "self - информация о себе\n"
-      "eat - поесть\n"
-      "shopping - купить еды\n"
-      "work - пойти работать\n"
-      "gym - пойти в качалку\n"
-      "study - пойти на учёбу\n"
-      "fight - участвовать в бою\n"
-      "sleep - пойти спать\n"
-      "heal - полечиться у врача\n"
-      "exit - выйти из игры\n"
-      "help - список действий\n")
+while True:
+    print("Вы играли раньше?\nНапишите\nда\nнет")
+    played = input()
+    if played == "да":
+        man = Man.load('man.pkl')
+        character_name = man.name
+        print("Возможные действия:\n"
+              "self - информация о себе\n"
+              "eat - поесть\n"
+              "shopping - купить еды\n"
+              "work - пойти работать\n"
+              "gym - пойти в качалку\n"
+              "study - пойти на учёбу\n"
+              "fight - участвовать в бою\n"
+              "sleep - пойти спать\n"
+              "heal - полечиться у врача\n"
+              "exit - выйти из игры\n"
+              "help - список действий\n")
+        break
+    elif played == "нет":
+        character_name = input('Введите имя персонажа: ')
+        print(f"Добро пожаловать, {character_name}")
+        man = Man(character_name)
+        print("Возможные действия:\n"
+          "self - информация о себе\n"
+          "eat - поесть\n"
+          "shopping - купить еды\n"
+          "work - пойти работать\n"
+          "gym - пойти в качалку\n"
+          "study - пойти на учёбу\n"
+          "fight - участвовать в бою\n"
+          "sleep - пойти спать\n"
+          "heal - полечиться у врача\n"
+          "exit - выйти из игры\n"
+          "help - список действий\n")
+        break
+    else:
+        print(f"выберите еще раз")
 
 action = ""
 while True:
@@ -44,6 +67,6 @@ while True:
         else:
             print(f"Неизвестное действие - {action}")
     else:
-        print(f"Конец игры, до встречи {character_name}!")
+        print(f"Конец игры, до встречи, {character_name}!")
         break
 
