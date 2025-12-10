@@ -97,3 +97,7 @@ class StressParameters(IntEnum):
     STRESS_REDUCE = 10
     MAXIMUM = 100
     HEALTH_REDUCE = 5
+
+class CookingParameters(IntEnum):
+    FULLNESS_INCREASE = 15
+    STRESS_REDUCE = 10

@@ -11,6 +11,7 @@ ACTIONS_MENU = {
     "help": "commands",
     "heal": "heal",
     "fight": "fight",
+    "cook": "cook",
 }
 
 while True:
@@ -22,6 +23,7 @@ while True:
         print("Возможные действия:\n"
               "self - информация о себе\n"
               "eat - поесть\n"
+              "cook - приготовить еды\n"
               "shopping - купить еды\n"
               "work - пойти работать\n"
               "gym - пойти в качалку\n"
@@ -39,6 +41,7 @@ while True:
         print("Возможные действия:\n"
           "self - информация о себе\n"
           "eat - поесть\n"
+          "cook - приготовить еды\n"
           "shopping - купить еды\n"
           "work - пойти работать\n"
           "gym - пойти в качалку\n"

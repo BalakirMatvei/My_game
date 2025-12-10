@@ -1,7 +1,7 @@
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
-    AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters
+    AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters
 
 import random
 import pickle
@@ -241,11 +241,12 @@ class Man:
         print("Возможные действия:\n"
               "self - информация о себе\n"
               "eat - поесть\n"
+              "cook - приготовить еды\n"
               "shopping - купить еды\n"
               "work - пойти работать\n"
               "gym - пойти в качалку\n"
               "study - пойти на учёбу\n"
-              "fight - участвовать в бою"
+              "fight - участвовать в бою\n"
               "sleep - пойти спать\n"
               "exit - выйти из игры\n"
               "help - список действий\n")
@@ -306,3 +307,16 @@ class Man:
     def load(self):
         with open('man.pkl', 'rb') as f:
             return pickle.load(f)
+
+    def cook(self):
+        if self.food > 0:
+            self.fullness += CookingParameters.FULLNESS_INCREASE
+            if self.fullness > EatParameters.MAXIMUM_FULLNESS:
+                self.fullness = EatParameters.MAXIMUM_FULLNESS.value
+            self.stress -= CookingParameters.STRESS_REDUCE
+            if self.stress < 0:
+                self.stress = 0
+            self.food -= EatParameters.REDUCE_FOOD
+            print(f"Вы приготовили еды и поели\nсытость - {self.fullness}\nеды осталось - {self.food}")
+        else:
+            print(f"У вас нет еды\nеды осталось - {self.food}")
