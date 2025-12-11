@@ -101,3 +101,7 @@ class StressParameters(IntEnum):
 class CookingParameters(IntEnum):
     FULLNESS_INCREASE = 15
     STRESS_REDUCE = 10
+
+class InvestParameters(IntEnum):
+    MINIMUM_DEPOSIT = 100
+    CHANCE = 30

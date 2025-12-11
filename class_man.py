@@ -1,7 +1,7 @@
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
-    AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters
+    AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters, InvestParameters
 
 import random
 import pickle
@@ -245,7 +245,8 @@ class Man:
               "work - пойти работать            gym - пойти в качалку\n"
               "study - пойти на учёбу           fight - участвовать в бою\n"
               "sleep - пойти спать              heal - полечиться у врача\n"
-              "menu - открыть меню              help - список действий\n")
+              "menu - открыть меню              invest - инвестировать\n"
+              "help - список действий")
 
     def heal(self):
         if self.money >= HealParameters.MONEY_REDUCE:
@@ -309,3 +310,23 @@ class Man:
             print(f"Вы приготовили еды и поели\nсытость - {self.fullness}\nеды осталось - {self.food}")
         else:
             print(f"У вас нет еды\nеды осталось - {self.food}")
+
+    def invest(self):
+        profit = 0
+        deposit = int(input(f"Введите сумму которую хотите инвестировать\n:"))
+        if deposit >= InvestParameters.MINIMUM_DEPOSIT:
+            if deposit <= self.money:
+                self.money -= deposit
+                if random.randint(1,100) < InvestParameters.CHANCE:
+                    profit = deposit * random.randint(1,7)
+                    self.money += profit
+                    print(f"Ваша инвестиция принесла прибыль в размере - {profit}$!!!\n поздравляем!!!\n"
+                          f"баланс - {self.money}")
+                else:
+                    print(f"Ваша инвестиция прогорела:(\n"
+                          f"баланс - {self.money}")
+            else:
+                print(f"Вы не можете инвестировать больше чем у вас есть\n"
+                      f"баланс - {self.money}")
+        else:
+            print(f"Минимальная инвестиция - {InvestParameters.MINIMUM_DEPOSIT.value}")
