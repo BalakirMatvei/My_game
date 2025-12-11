@@ -5,9 +5,9 @@ class IntEnum(int, Enum):
     pass
 
 class WorkParameters(IntEnum):
-    MINIMUM_FULLNESS = 20
-    MINIMUM_HEALTH = 20
-    REDUCE_FULLNESS = 10
+    MINIMUM_FULLNESS = 30
+    MINIMUM_HEALTH = 30
+    REDUCE_FULLNESS = 30
     REDUCE_HEALTH = 20
 
 class IntelligenceLVL(IntEnum):
@@ -33,10 +33,10 @@ class GymParameters(IntEnum):
     REDUCE_FULLNESS = 20
 
 class StudyParameters(IntEnum):
-    MINIMUM_FULLNESS = 10
-    MINIMUM_HEALTH = 20
+    MINIMUM_FULLNESS = 30
+    MINIMUM_HEALTH = 30
     INCREASE_INTELLIGENCE = 10
-    REDUCE_FULLNESS = 10
+    REDUCE_FULLNESS = 30
     REDUCE_HEALTH = 20
 
 class SleepParameters(IntEnum):

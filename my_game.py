@@ -96,6 +96,7 @@ while True:
                     print(glob.glob("*.pkl"))
                     delite_save = input("Введите сохранение для удаления(до точки)\n:")
                     os.remove(delite_save + ".pkl")
+                    print(f"Сохранение {delite_save + ".pkl"} удалено")
             else:
                 print(f"неизвестное действие - {menu_action}")
         if menu_action == 'exit':
