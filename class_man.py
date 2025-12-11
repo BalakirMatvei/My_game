@@ -243,7 +243,7 @@ class Man:
               "work - пойти работать            gym - пойти в качалку\n"
               "study - пойти на учёбу           fight - участвовать в бою\n"
               "sleep - пойти спать              heal - полечиться у врача\n"
-              "exit - выйти из игры             help - список действий\n")
+              "menu - открыть меню              help - список действий\n")
 
     def heal(self):
         if self.money >= HealParameters.MONEY_REDUCE:

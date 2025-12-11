@@ -1,3 +1,4 @@
+import os
 import pickle
 
 from class_man import Man
@@ -40,7 +41,7 @@ while True:
               "work - пойти работать            gym - пойти в качалку\n"
               "study - пойти на учёбу           fight - участвовать в бою\n"
               "sleep - пойти спать              heal - полечиться у врача\n"
-              "exit - выйти из игры             help - список действий\n")
+              "menu - открыть меню              help - список действий\n")
         break
     else:
         played = input("новая игра или загрузить(Введите n или l):\n")
@@ -54,7 +55,7 @@ while True:
                   "work - пойти работать            gym - пойти в качалку\n"
                   "study - пойти на учёбу           fight - участвовать в бою\n"
                   "sleep - пойти спать              heal - полечиться у врача\n"
-                  "exit - выйти из игры             help - список действий\n")
+                  "menu - открыть меню              help - список действий\n")
             break
         elif played == 'l':
             print(glob.glob('*.pkl'))
@@ -67,17 +68,40 @@ while True:
                   "work - пойти работать            gym - пойти в качалку\n"
                   "study - пойти на учёбу           fight - участвовать в бою\n"
                   "sleep - пойти спать              heal - полечиться у врача\n"
-                  "exit - выйти из игры             help - список действий\n")
+                  "menu - открыть меню              help - список действий\n")
             break
         else:
             print(f'неизвестное действие - {played}')
 
 action = ""
+menu_action = ""
 while True:
     if getattr(man, 'alive') and action == "sleep":
         print(f'Day {man.day_counter}\nДоброе утро, {man.name}! hp - {man.health}')
     action = input("Выберите действие: ")
-    if action != "exit":
+    if action == 'menu':
+        while True:
+            print(
+                "Игра приостановлена\ncont - продолжить игру\nexit - выйти из игры\ndel - удалить сохранение")
+            menu_action = input(":")
+            if menu_action == "cont":
+                break
+            elif menu_action == "exit":
+                break
+            elif menu_action == "del":
+                if len(saves) < 1:
+                    print("Нет лишних сохранений")
+                    break
+                else:
+                    print(glob.glob("*.pkl"))
+                    delite_save = input("Введите сохранение для удаления(до точки)\n:")
+                    os.remove(delite_save + ".pkl")
+            else:
+                print(f"неизвестное действие - {menu_action}")
+        if menu_action == 'exit':
+            print(f"Конец игры, до встречи, {character_name}!")
+            break
+    else:
         if action in ACTIONS_MENU:
             getattr(man, ACTIONS_MENU[action])()
             if not getattr(man, 'alive'):
@@ -87,7 +111,3 @@ while True:
             save(man, man.name)
         else:
             print(f"Неизвестное действие - {action}")
-    else:
-        print(f"Конец игры, до встречи, {character_name}!")
-        break
-
