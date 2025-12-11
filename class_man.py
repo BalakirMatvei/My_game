@@ -53,7 +53,7 @@ class Man:
 
     def gym(self):
         if self.tiredness < TirednessParameters.MAXIMUM:
-            if self.stress == StressParameters.MAXIMUM:
+            if self.stress == StressParameters.MAXIMUM.value:
                 self.health -= StressParameters.HEALTH_REDUCE.value
             if self.age >= AgeParameters.OLD:
                 if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
@@ -97,7 +97,7 @@ class Man:
             self.stress += StressParameters.STRESS_INCREASE
             if self.stress > StressParameters.MAXIMUM:
                 self.stress = StressParameters.MAXIMUM.value
-            if self.stress == StressParameters.MAXIMUM:
+            if self.stress == StressParameters.MAXIMUM.value:
                 self.health -= StressParameters.HEALTH_REDUCE.value
             if self.intelligence >= IntelligenceLVL.EXTRA_HIGH:
                 self.money += SalaryParameters.EXTRA_HIGH
@@ -153,7 +153,7 @@ class Man:
             self.stress += StressParameters.STRESS_INCREASE
             if self.stress > StressParameters.MAXIMUM:
                 self.stress = StressParameters.MAXIMUM.value
-            if self.stress == StressParameters.MAXIMUM:
+            if self.stress == StressParameters.MAXIMUM.value:
                 self.health -= StudyParameters.REDUCE_HEALTH.value
             if self.age >= AgeParameters.OLD:
                 if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
@@ -233,23 +233,17 @@ class Man:
                       "Спасибо за игру! ")
             else:
                 print(f"Ваш ранг - {self.rang}")
-            self.save()
         else:
             self.health -= StressParameters.HEALTH_REDUCE.value
 
     def commands(self):
         print("Возможные действия:\n"
-              "self - информация о себе\n"
-              "eat - поесть\n"
-              "cook - приготовить еды\n"
-              "shopping - купить еды\n"
-              "work - пойти работать\n"
-              "gym - пойти в качалку\n"
-              "study - пойти на учёбу\n"
-              "fight - участвовать в бою\n"
-              "sleep - пойти спать\n"
-              "exit - выйти из игры\n"
-              "help - список действий\n")
+              "self - информация о себе         eat - поесть\n"
+              "cook - приготовить еды           shopping - купить еды\n"
+              "work - пойти работать            gym - пойти в качалку\n"
+              "study - пойти на учёбу           fight - участвовать в бою\n"
+              "sleep - пойти спать              heal - полечиться у врача\n"
+              "exit - выйти из игры             help - список действий\n")
 
     def heal(self):
         if self.money >= HealParameters.MONEY_REDUCE:
@@ -299,14 +293,6 @@ class Man:
         else:
             print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
                   f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
-
-    def save(self):
-        with open('man.pkl', 'wb') as f:
-            pickle.dump(self, f)
-
-    def load(self):
-        with open('man.pkl', 'rb') as f:
-            return pickle.load(f)
 
     def cook(self):
         if self.food > 0:
