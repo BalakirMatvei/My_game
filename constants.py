@@ -105,3 +105,21 @@ class CookingParameters(IntEnum):
 class InvestParameters(IntEnum):
     MINIMUM_DEPOSIT = 100
     CHANCE = 30
+
+BJ_Points = {
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+    '10': 10,
+    'J': 2,
+    'Q': 3,
+    'K': 4,
+    'A': 11
+}
+
+BJ_Cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']

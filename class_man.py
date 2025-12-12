@@ -1,7 +1,8 @@
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
-    AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters, InvestParameters
+    AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters, InvestParameters, BJ_Cards, \
+    BJ_Points
 
 import random
 import pickle
@@ -246,7 +247,7 @@ class Man:
               "study - пойти на учёбу           fight - участвовать в бою\n"
               "sleep - пойти спать              heal - полечиться у врача\n"
               "menu - открыть меню              invest - инвестировать\n"
-              "help - список действий")
+              "help - список действий           bj - поиграть в Блэк Джек")
 
     def heal(self):
         if self.money >= HealParameters.MONEY_REDUCE:
@@ -330,3 +331,100 @@ class Man:
                       f"баланс - {self.money}")
         else:
             print(f"Минимальная инвестиция - {InvestParameters.MINIMUM_DEPOSIT.value}")
+
+    def bj(self):
+        while True:
+            self_cards = []
+            diller_cards = []
+            bj_action = ''
+            self_points = 0
+            diller_points = 0
+            win = False
+            bj_action = input('начать игру или выйти? s или e?\n:')
+            if bj_action == 'e':
+                print("до встречи!")
+                break
+            elif bj_action == 's':
+                dep = int(input("Ставка\n:"))
+                if dep <= self.money:
+                    self.money -= dep
+                    win = False
+                    self_cards.append(BJ_Cards[random.randint(0, len(BJ_Cards) - 1)])
+                    self_points += BJ_Points.get(self_cards[-1])
+                    self_cards.append(BJ_Cards[random.randint(0, len(BJ_Cards) - 1)])
+                    self_points += BJ_Points.get(self_cards[-1])
+                    diller_cards.append(BJ_Cards[random.randint(0, len(BJ_Cards) - 1)])
+                    diller_points += BJ_Points.get(diller_cards[-1])
+                    print(f'Рука диллера - {diller_cards}, сумма - {diller_points}')
+                    print(f'Ваша рука  - {self_cards}, сумма - {self_points}')
+                    while True:
+                        if self_points == 21:
+                            print("Вы выиграли")
+                            win = True
+                            self.money += dep * 2
+                            break
+                        game_action = input('взять еще или хватит? h или s\n:')
+                        if game_action == 'h':
+                            self_cards.append(BJ_Cards[random.randint(0, len(BJ_Cards) - 1)])
+                            self_points += BJ_Points.get(self_cards[-1])
+                            if self_points > 21:
+                                print("Перебор:(")
+                                self_cards = []
+                                diller_cards = []
+                                self_points = 0
+                                diller_points = 0
+                                break
+                            else:
+                                print(f'Рука диллера - {diller_cards}, сумма - {diller_points}')
+                                print(f'Ваша рука  - {self_cards}, сумма - {self_points}')
+                        elif game_action == 's':
+                            while True:
+                                diller_cards.append(BJ_Cards[random.randint(0, len(BJ_Cards) - 1)])
+                                diller_points += BJ_Points.get(self_cards[-1])
+                                if diller_points > 21:
+                                    print("У диллера перебор. Вы выиграли!")
+                                    self_cards = []
+                                    diller_cards = []
+                                    self_points = 0
+                                    diller_points = 0
+                                    self.money += dep * 2
+                                    win = True
+                                    break
+                                elif 17 < diller_points < 21:
+                                    if self_points > diller_points:
+                                        print(f"Ваши очки - {self_points}\nОчки диллера - {diller_points}")
+                                        print("Вы выиграли!")
+                                        self_cards = []
+                                        diller_cards = []
+                                        self_points = 0
+                                        diller_points = 0
+                                        win = True
+                                        self.money += dep * 2
+                                        break
+                                    elif self_points < diller_points:
+                                        print(f"Ваши очки - {self_points}\nОчки диллера - {diller_points}")
+                                        print("Вы проиграли:(")
+                                        self_cards = []
+                                        diller_cards = []
+                                        self_points = 0
+                                        diller_points = 0
+                                        win = True
+                                        break
+                                    else:
+                                        print(f"Ваши очки - {self_points}\nОчки диллера - {diller_points}")
+                                        print("ничья")
+                                        self_cards = []
+                                        diller_cards = []
+                                        self_points = 0
+                                        diller_points = 0
+                                        self.money += dep
+                                        win = True
+                                        break
+                            if win:
+                                break
+                        else:
+                            print(f"неизвестное действие - {game_action}")
+                else:
+                    print(f'вы не можете поставить больше чем у вас есть\nбаланс - {self.money}')
+            else:
+                print(f"неизвестное действие - {bj_action}")
