@@ -345,6 +345,7 @@ class Man:
                 print("до встречи!")
                 break
             elif bj_action == 's':
+                print(f"баланс - {self.money}$")
                 dep = int(input("Ставка\n:"))
                 if dep <= self.money:
                     self.money -= dep
