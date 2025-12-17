@@ -5,10 +5,9 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     BJ_Points
 
 import random
-import pickle
 
 class Man:
-    RangList = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster"]
+    RangList = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster", "Lord"]
 
     def __init__(self, name):
         self.name = name
@@ -206,6 +205,8 @@ class Man:
                   f"+ 100$")
             self.money += BD_GIFT_MONEY
             print(f"баланс - {self.money}")
+        if self.money >= RangParameters.MONEY_LORD:
+            self.r = 7
         if self.money >= RangParameters.MONEY_GRANDMASTER:
             self.r = 6
         elif self.money >= RangParameters.MONEY_MASTER:
@@ -231,8 +232,8 @@ class Man:
             if self.health > SleepParameters.MAXIMUM_HEALTH:
                 self.health = SleepParameters.MAXIMUM_HEALTH.value
             self.rang = self.RangList[self.r]
-            if self.rang == "Grandmaster":
-                print(f"Поздравляю, вы достигли ранга Grandmaster в возрасте {self.age} и прошли игру!\n"
+            if self.rang == "Lord":
+                print(f"Поздравляю, вы достигли ранга Lord в возрасте {self.age} и прошли игру!\n"
                       "Спасибо за игру! ")
             else:
                 print(f"Ваш ранг - {self.rang}")
@@ -369,6 +370,7 @@ class Man:
                             self_cards.append(BJ_Cards[random.randint(0, len(BJ_Cards) - 1)])
                             self_points += BJ_Points.get(self_cards[-1])
                             if self_points > 21:
+                                print(f'{self_cards}')
                                 print("Перебор:(")
                                 self_cards = []
                                 diller_cards = []

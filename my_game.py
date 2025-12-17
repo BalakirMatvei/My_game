@@ -112,8 +112,14 @@ while True:
             getattr(man, ACTIONS_MENU[action])()
             if not getattr(man, 'alive'):
                 break
-            if getattr(man, 'rang') == "Grandmaster":
-                break
+            if getattr(man, 'rang') == "Lord":
+                print(f"Вы достигли вершины! Ранга Лорд, поздравляем")
+                contin = input("Желаете играть дальше? y/n\n:")
+                if contin == "y":
+                    continue
+                elif contin == "n":
+                    print(f"Конец игры, до встречи, {character_name}!")
+                    break
             save(man, man.name)
         else:
             print(f"Неизвестное действие - {action}")

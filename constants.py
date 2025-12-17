@@ -64,6 +64,7 @@ class RangParameters(IntEnum):
     MONEY_DIAMOND = 5000
     MONEY_MASTER = 10000
     MONEY_GRANDMASTER = 25000
+    MONEY_LORD = 50000
 
 class HealParameters(IntEnum):
     HEALTH_INCREASE = 30
