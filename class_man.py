@@ -2,9 +2,10 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
     AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters, InvestParameters, BJ_Cards, \
-    BJ_Points
+    BJ_Points, ROULETTE
 
 import random
+import time
 
 class Man:
     RangList = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster", "Lord"]
@@ -248,7 +249,7 @@ class Man:
               "study - пойти на учёбу           fight - участвовать в бою\n"
               "sleep - пойти спать              heal - полечиться у врача\n"
               "menu - открыть меню              invest - инвестировать\n"
-              "help - список действий           bj - поиграть в Блэк Джек")
+              "help - список действий           casino - пойти в казино")
 
     def heal(self):
         if self.money >= HealParameters.MONEY_REDUCE:
@@ -364,6 +365,7 @@ class Man:
                             print("Вы выиграли")
                             win = True
                             self.money += dep * 2
+                            print(f"баланс - {self.money}$")
                             break
                         game_action = input('взять еще или хватит? h или s\n:')
                         if game_action == 'h':
@@ -372,6 +374,7 @@ class Man:
                             if self_points > 21:
                                 print(f'{self_cards}')
                                 print("Перебор:(")
+                                print(f"баланс - {self.money}$")
                                 self_cards = []
                                 diller_cards = []
                                 self_points = 0
@@ -392,6 +395,7 @@ class Man:
                                     diller_points = 0
                                     self.money += dep * 2
                                     win = True
+                                    print(f"баланс - {self.money}$")
                                     break
                                 elif 17 < diller_points < 21:
                                     if self_points > diller_points:
@@ -403,6 +407,7 @@ class Man:
                                         diller_points = 0
                                         win = True
                                         self.money += dep * 2
+                                        print(f"баланс - {self.money}$")
                                         break
                                     elif self_points < diller_points:
                                         print(f"Ваши очки - {self_points}\nОчки диллера - {diller_points}")
@@ -412,6 +417,7 @@ class Man:
                                         self_points = 0
                                         diller_points = 0
                                         win = True
+                                        print(f"баланс - {self.money}$")
                                         break
                                     else:
                                         print(f"Ваши очки - {self_points}\nОчки диллера - {diller_points}")
@@ -422,6 +428,7 @@ class Man:
                                         diller_points = 0
                                         self.money += dep
                                         win = True
+                                        print(f"баланс - {self.money}$")
                                         break
                             if win:
                                 break
@@ -431,3 +438,98 @@ class Man:
                     print(f'вы не можете поставить больше чем у вас есть\nбаланс - {self.money}')
             else:
                 print(f"неизвестное действие - {bj_action}")
+
+    def roulette(self):
+        while True:
+            roulette_action = ''
+            print(f"баланс - {self.money}$")
+            roulette_action = input('начать игру или выйти? s или e?\n:')
+            if roulette_action == 'e':
+                print(f"до встречи, {self.name}")
+                break
+            elif roulette_action == 's':
+                bet_list = []
+                dep_list = []
+                # print(f"баланс - {self.money}$")
+                print('    3', '6', '9', '12', '15', '18', '21', '24', '27', '30', '33', '36')
+                print('0', '2', '5', '8', '11', '14', '17', '20', '23', '26', '29', '32', '35')
+                print('    1', '4', '7', '10', '13', '16', '19', '22', '25', '28', '31', '34')
+                print('     1st 12      ', '    2nd 12     ', '       3rd 12')
+                print('1-18 ', '    EVEN    ', 'red     ', 'black', '    ODD  ', '   19-36')
+                while True:
+                    print(f"баланс - {self.money}$")
+                    bet = input('Выберите ставку: ')
+                    if bet in ROULETTE.all_bets:
+                        bet_list.append(bet)
+                        print(f"баланс - {self.money}$")
+                        dep = int(input("Сумма ставки: "))
+                        if dep <= self.money:
+                            dep_list.append(dep)
+                            self.money -= dep
+                        else:
+                            print(f"У вас не хватает на такую ставку - {dep}")
+                            dep_list.pop()
+                    else:
+                        print(f"нет такого варианта - {bet}")
+                    if self.money > 0:
+                        bet_action = input("Хотите поставить ещё? y/n\n:")
+                        if bet_action == 'n':
+                            break
+                        elif bet_action != 'y':
+                            print(f"нет такого варианта - {bet_action}")
+                    else:
+                        break
+                spin_result = random.choice(ROULETTE.all_results)
+                print("Поехали!")
+                time.sleep(1)
+                print("spinning")
+                time.sleep(1)
+                print('spinning')
+                time.sleep(1)
+                print('spinning')
+                time.sleep(1)
+                print(f"выпал номер {spin_result} {ROULETTE.colors.get(spin_result)}")
+                for num, i in enumerate(bet_list):
+                    if i == '1st 12' and spin_result in ROULETTE.first_12:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i == '2nd 12' and spin_result in ROULETTE.second_12:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i == '3rd 12' and spin_result in ROULETTE.third_12:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i == '1-18' and spin_result in ROULETTE.first_half:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i == '19-36' and spin_result in ROULETTE.second_half:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i == 'EVEN' and spin_result in ROULETTE.even:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i == 'ODD' and spin_result in ROULETTE.odd:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i == 'red' and spin_result in ROULETTE.red:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i == 'black' and spin_result in ROULETTE.black:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    elif i in ROULETTE.all_results and spin_result == i:
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                    else:
+                        print("Ваша ставка не сыграла")
+            else:
+                print(f"неизвестное действие - {roulette_action}")
+
+    def casino(self):
+        game = input("Во что хотите поиграть? bj/roulette\n:")
+        if game == 'bj':
+            self.bj()
+        elif game == 'roulette':
+            self.roulette()
+        else:
+            print(f"Неизвестное действие - {game}")

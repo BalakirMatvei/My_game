@@ -17,7 +17,7 @@ ACTIONS_MENU = {
     "fight": "fight",
     "cook": "cook",
     "invest": "invest",
-    "bj": "bj",
+    "casino": "casino",
 }
 
 
@@ -44,7 +44,7 @@ while True:
               "study - пойти на учёбу           fight - участвовать в бою\n"
               "sleep - пойти спать              heal - полечиться у врача\n"
               "menu - открыть меню              invest - инвестировать\n"
-              "help - список действий           bj - поиграть в Блэк Джек")
+              "help - список действий           casino - пойти в казино")
         break
     else:
         played = input("новая игра или загрузить(Введите n или l):\n")
@@ -59,7 +59,7 @@ while True:
                   "study - пойти на учёбу           fight - участвовать в бою\n"
                   "sleep - пойти спать              heal - полечиться у врача\n"
                   "menu - открыть меню              invest - инвестировать\n"
-                  "help - список действий           bj - поиграть в Блэк Джек")
+                  "help - список действий           casino - пойти в казино")
             break
         elif played == 'l':
             print(glob.glob('*.pkl'))
@@ -73,7 +73,7 @@ while True:
                   "study - пойти на учёбу           fight - участвовать в бою\n"
                   "sleep - пойти спать              heal - полечиться у врача\n"
                   "menu - открыть меню              invest - инвестировать\n"
-                  "help - список действий           bj - поиграть в Блэк Джек")
+                  "help - список действий           casino - пойти в казино")
             break
         else:
             print(f'неизвестное действие - {played}')
@@ -115,11 +115,11 @@ while True:
             if getattr(man, 'rang') == "Lord":
                 print(f"Вы достигли вершины! Ранга Лорд, поздравляем")
                 contin = input("Желаете играть дальше? y/n\n:")
-                if contin == "y":
-                    continue
-                elif contin == "n":
+                if contin == "n":
                     print(f"Конец игры, до встречи, {character_name}!")
                     break
+                elif contin != "y":
+                    print(f"неизвестное действие - {contin}")
             save(man, man.name)
         else:
             print(f"Неизвестное действие - {action}")

@@ -124,3 +124,57 @@ BJ_Points = {
 }
 
 BJ_Cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A' ]
+
+class ROULETTE:
+    all_bets = list(str(i) for i in range(1, 37)) + ['1st 12', '2nd 12', '3rd 12', '1-18', '19-36', 'red', 'black', 'EVEN', 'ODD']
+
+    all_results = list(str(i) for i in range(1, 37))
+
+    black = ['2', '4', '6', '8', '10', '11', '13', '15', '17', '20', '22', '24', '26', '28', '29', '31', '33', '35']
+
+    red = ['1', '3', '5', '7', '9', '12', '14', '16', '18', '19', '21', '23', '25', '27', '30', '32', '34', '36']
+
+    even = [i for i in range(2, 37) if i % 2 == 0]
+
+    odd = [i for i in range(1, 37) if i % 2 != 0]
+
+    first_12 = list(str(i) for i in range(1, 13))
+
+    second_12 = list(str(i) for i in range(13, 25))
+
+    third_12 = list(str(i) for i in range(25, 37))
+
+    first_half = list(str(i) for i in range(1, 19))
+
+    second_half = list(str(i) for i in range(19, 37))
+
+    bet_variants = {
+        '1st 12': "first_12",
+        '2nd 12': "second_12",
+        '3nd 12': 'third_12',
+        '1-18': 'first_half',
+        '19-36': 'second_half',
+        'EVEN': 'even',
+        "ODD": 'odd',
+        'red': 'red',
+        'black': 'black'
+    }
+
+    colors = {
+        0: 'green',
+        **{str(i): 'red' for i in red},
+        **{str(i): 'black' for i in black},
+    }
+
+    num_multiplier = 36
+    multipliers = {
+        '1st 12': 3,
+        '2nd 12': 3,
+        '3nd 12': 3,
+        '1-18': 2,
+        '19-36': 2,
+        'EVEN': 2,
+        "ODD": 2,
+        'red': 2,
+        'black': 2
+    }
