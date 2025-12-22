@@ -13,7 +13,7 @@ class Man:
     def __init__(self, name):
         self.name = name
         self.fullness = 80
-        self.money = 50
+        self.money = 10000
         self.health = 100
         self.food = 100
         self.strength = 50
@@ -482,49 +482,52 @@ class Man:
                             print(f"нет такого варианта - {bet_action}")
                     else:
                         break
-                spin_result = random.choice(ROULETTE.all_results)
-                print("Поехали!")
-                time.sleep(1)
-                print("spinning")
-                time.sleep(1)
-                print('spinning')
-                time.sleep(1)
-                print('spinning')
-                time.sleep(1)
-                print(f"выпал номер {spin_result} {ROULETTE.colors.get(spin_result)}")
-                for num, i in enumerate(bet_list):
-                    if i == '1st 12' and spin_result in ROULETTE.first_12:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i == '2nd 12' and spin_result in ROULETTE.second_12:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i == '3rd 12' and spin_result in ROULETTE.third_12:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i == '1-18' and spin_result in ROULETTE.first_half:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i == '19-36' and spin_result in ROULETTE.second_half:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i == 'EVEN' and spin_result in ROULETTE.even:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i == 'ODD' and spin_result in ROULETTE.odd:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i == 'red' and spin_result in ROULETTE.red:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i == 'black' and spin_result in ROULETTE.black:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    elif i in ROULETTE.all_results and spin_result == i:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
-                        self.money += dep_list[num] * ROULETTE.multipliers.get(i)
-                    else:
-                        print("Ваша ставка не сыграла")
+                if len(bet_list) > 0:
+                    spin_result = random.choice(ROULETTE.all_results)
+                    print("Поехали!")
+                    time.sleep(1)
+                    print("spinning")
+                    time.sleep(1)
+                    print('spinning')
+                    time.sleep(1)
+                    print('spinning')
+                    time.sleep(1)
+                    print(f"выпал номер {spin_result} {ROULETTE.colors.get(spin_result)}")
+                    for num, i in enumerate(bet_list):
+                        if i == '1st 12' and spin_result in ROULETTE.first_12:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i == '2nd 12' and spin_result in ROULETTE.second_12:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i == '3rd 12' and spin_result in ROULETTE.third_12:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i == '1-18' and spin_result in ROULETTE.first_half:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i == '19-36' and spin_result in ROULETTE.second_half:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i == 'EVEN' and spin_result in ROULETTE.even:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i == 'ODD' and spin_result in ROULETTE.odd:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i == 'red' and spin_result in ROULETTE.red:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i == 'black' and spin_result in ROULETTE.black:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        elif i in ROULETTE.all_results and spin_result == i:
+                            print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
+                            self.money += dep_list[num] * ROULETTE.multipliers.get(i)
+                        else:
+                            print("Ваша ставка не сыграла")
+                else:
+                    print('Добавьте минимум 1 ставку')
             else:
                 print(f"неизвестное действие - {roulette_action}")
 
