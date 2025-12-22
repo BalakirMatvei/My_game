@@ -494,34 +494,34 @@ class Man:
                 print(f"выпал номер {spin_result} {ROULETTE.colors.get(spin_result)}")
                 for num, i in enumerate(bet_list):
                     if i == '1st 12' and spin_result in ROULETTE.first_12:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i == '2nd 12' and spin_result in ROULETTE.second_12:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i == '3rd 12' and spin_result in ROULETTE.third_12:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i == '1-18' and spin_result in ROULETTE.first_half:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i == '19-36' and spin_result in ROULETTE.second_half:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i == 'EVEN' and spin_result in ROULETTE.even:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i == 'ODD' and spin_result in ROULETTE.odd:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i == 'red' and spin_result in ROULETTE.red:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i == 'black' and spin_result in ROULETTE.black:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     elif i in ROULETTE.all_results and spin_result == i:
-                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}")
+                        print(f"Ставка сыграла({i}), Ваш выигрыш - {dep_list[num] * ROULETTE.multipliers.get(i)}$")
                         self.money += dep_list[num] * ROULETTE.multipliers.get(i)
                     else:
                         print("Ваша ставка не сыграла")
@@ -617,11 +617,11 @@ class Man:
                 if location == '2':  # оплата
                     self.money -= DateParameters.location_chance.get(location)
                     print(
-                        f"-вы оплатили ваш счет в кафе, он вам вышел - {DateParameters.location_money.get(location).value}")
+                        f"-вы оплатили ваш счет в кафе, он вам вышел - {DateParameters.location_money.get(location)}$")
                 elif location == '3':
                     self.money -= DateParameters.location_money.get(location)
                     print(
-                        f"-вы оплатили ваш счет в ресторане, он вам вышел - {DateParameters.location_money.get(location)}")
+                        f"-вы оплатили ваш счет в ресторане, он вам вышел - {DateParameters.location_money.get(location)}$")
 
                 while True:  # дорога домой
                     home_action = input('провести ее домой      попращаться на месте\n1/2\n:')
@@ -647,7 +647,7 @@ class Man:
                 else:
                     print("-вы ее не впечатлили и она вам отказала:(")
             else:
-                print(f"у вас маловато денег, надо хотя бы - {DateParameters.MINIMUM_MONEY}")
+                print(f"у вас маловато денег, надо хотя бы - {DateParameters.MINIMUM_MONEY}$")
         else:
             print(f"у вас уже есть девушка {self.girl_rate}/10")
             break_up_action = input(f"-хотите расстаться со своей {self.girl_rate}/10\ny/n\n:")
