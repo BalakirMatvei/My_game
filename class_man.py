@@ -2,7 +2,7 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
     AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters, InvestParameters, BJ_Cards, \
-    BJ_Points, ROULETTE, DateParameters
+    BJ_Points, ROULETTE, DateParameters, MeditateParameters
 
 import random
 import time
@@ -252,7 +252,7 @@ class Man:
               "sleep - пойти спать              heal - полечиться у врача\n"
               "menu - открыть меню              invest - инвестировать\n"
               "help - список действий           casino - пойти в казино\n"
-              "date - сходить на свидание")
+              "date - сходить на свидание       meditate - помедитировать")
 
     def heal(self):
         if self.money >= HealParameters.MONEY_REDUCE:
@@ -663,3 +663,10 @@ class Man:
                     break
                 else:
                     print(f"неизвестное действие - {break_up_action}")
+
+    def meditate(self):
+        if self.strength >= MeditateParameters.STRESS_REDUCE:
+            self.stress -=  MeditateParameters.STRESS_REDUCE
+        else:
+            self.stress = 0
+        print("Вы помедитировали, успокоились, нашли просветление")

@@ -18,6 +18,7 @@ ACTIONS_MENU = {
     "invest": "invest",
     "casino": "casino",
     "date" : "date",
+    "meditate" : "meditate",
 }
 
 
@@ -45,7 +46,7 @@ while True:
               "sleep - пойти спать              heal - полечиться у врача\n"
               "menu - открыть меню              invest - инвестировать\n"
               "help - список действий           casino - пойти в казино\n"
-              "date - сходить на свидание")
+              "date - сходить на свидание       meditate - помедитировать")
         break
     else:
         played = input("новая игра или загрузить(Введите n или l):\n")
@@ -61,7 +62,7 @@ while True:
                   "sleep - пойти спать              heal - полечиться у врача\n"
                   "menu - открыть меню              invest - инвестировать\n"
                   "help - список действий           casino - пойти в казино\n"
-                  "date - сходить на свидание")
+                  "date - сходить на свидание       meditate - помедитировать")
             break
         elif played == 'l':
             print(glob.glob('*.pkl'))
@@ -76,7 +77,7 @@ while True:
                   "sleep - пойти спать              heal - полечиться у врача\n"
                   "menu - открыть меню              invest - инвестировать\n"
                   "help - список действий           casino - пойти в казино\n"
-                  "date - сходить на свидание")
+                  "date - сходить на свидание       meditate - помедитировать")
             break
         else:
             print(f'неизвестное действие - {played}')

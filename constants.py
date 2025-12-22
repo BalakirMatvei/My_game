@@ -216,3 +216,6 @@ class DateParameters:
         '2' : 150,
         '3' : 300,
     }
+
+class MeditateParameters(IntEnum):
+    STRESS_REDUCE = 20
