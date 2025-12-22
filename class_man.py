@@ -27,6 +27,8 @@ class Man:
         self.stress = 0
         self.single = True
         self.girl_rate = 0
+        self.time = 12
+        self.day_period = 'day'
 
     def __str__(self):
         return f"{self.name}, возраст - {self.age}, сытость - {self.fullness}, hp - {self.health}" \
@@ -274,26 +276,26 @@ class Man:
                         self.health = FightParameters.HEALTH_REDUCE_WIN.value
                         self.tiredness = TirednessParameters.MAXIMUM.value
                         if self.health == 0:
-                            self.health = FightParameters.HEALTH_AFTER_LOOS.value
+                            self.health = FightParameters.HEALTH_AFTER_LOOSE.value
                         print(f"Вы выиграли бой местной лиги!!!\nВаш гонорар - {FightParameters.MONEY_WIN.value}$\nВы сильно устали, советуем поесть")
                     else:
-                        self.money += FightParameters.MONEY_LOOS
-                        self.health = FightParameters.HEALTH_AFTER_LOOS.value
+                        self.money += FightParameters.MONEY_LOOSE
+                        self.health = FightParameters.HEALTH_AFTER_LOOSE.value
                         self.stress += FightParameters.STRENGTH_INCREASED_CHANCE
-                        print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOS.value}$\nВы сильно устали, советуем поесть")
+                        print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOSE.value}$\nВы сильно устали, советуем поесть")
                 elif self.strength >= FightParameters.MINIMUM_STRENGTH:
                     if random.randint(0, 100) <= FightParameters.DEFAULT_WIN_CHANCE:
                         self.money += FightParameters.MONEY_WIN
                         self.health -= FightParameters.HEALTH_REDUCE_WIN.value
                         self.tiredness = TirednessParameters.MAXIMUM.value
                         if self.health == 0:
-                            self.health = FightParameters.HEALTH_AFTER_LOOS.value
+                            self.health = FightParameters.HEALTH_AFTER_LOOSE.value
                         print(f"Вы выиграли бой местной лиги!!!\nВаш гонорар - {FightParameters.MONEY_WIN.value}$\nВы сильно устали, советуем поесть")
                     else:
-                        self.money += FightParameters.MONEY_LOOS
-                        self.health = FightParameters.HEALTH_AFTER_LOOS.value
-                        self.stress += FightParameters.STRESS_LOOS
-                        print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOS.value}$\nВы сильно устали, советуем поесть")
+                        self.money += FightParameters.MONEY_LOOSE
+                        self.health = FightParameters.HEALTH_AFTER_LOOSE.value
+                        self.stress += FightParameters.STRESS_LOOSE
+                        print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOSE.value}$\nВы сильно устали, советуем поесть")
                 else:
                     print(f"Вы недостаточно сильны для участия в боях местной лиги:(\n"
                           f"Ваша сила - {self.strength}\n"
