@@ -2,7 +2,7 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
     AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters, InvestParameters, BJ_Cards, \
-    BJ_Points, ROULETTE, DateParameters, MeditateParameters
+    BJ_Points, ROULETTE, DateParameters, MeditateParameters, ReadParameters
 
 import random
 import time
@@ -670,3 +670,23 @@ class Man:
         else:
             self.stress = 0
         print("Вы помедитировали, успокоились, нашли просветление")
+
+    def read(self):
+        while True:
+            book = input("какую книгу хотите почитать\n"
+                         "фантастику        научную\n"
+                         "1/2\n"
+                         ":")
+            if book == "1":
+                self.stress -= ReadParameters.STRESS_REDUCE
+                self.intelligence += ReadParameters.INTELLIGENCE_INCREASE_FANTASY
+                print(f"вы почитали интересную художественную книгу, успокоились и стали чуть умнее\n"
+                      f"интеллект - {self.intelligence}")
+                break
+            elif book == "2":
+                self.intelligence += ReadParameters.INTELLIGENCE_INCREASE_SCIENCE
+                print(f"вы почитали научную книгу и стали умнее\n"
+                      f"интеллект - {self.intelligence}")
+                break
+            else:
+                print(f"неизвестное действие - {book} ")

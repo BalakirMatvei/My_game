@@ -219,3 +219,8 @@ class DateParameters:
 
 class MeditateParameters(IntEnum):
     STRESS_REDUCE = 20
+
+class ReadParameters(IntEnum):
+    STRESS_REDUCE = 10
+    INTELLIGENCE_INCREASE_FANTASY = 5
+    INTELLIGENCE_INCREASE_SCIENCE = 10
