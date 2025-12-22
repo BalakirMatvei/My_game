@@ -19,8 +19,8 @@ class IntelligenceLVL(IntEnum):
 class EatParameters(IntEnum):
     MAXIMUM_FULLNESS = 100
     MINIMUM_FOOD = 10
-    INCREASE_FULLNESS = 10
-    REDUCE_FOOD = 10
+    INCREASE_FULLNESS = 30
+    REDUCE_FOOD = 20
 
 class ShoppingParameters(IntEnum):
     MINIMUM_MONEY = 10
@@ -100,8 +100,8 @@ class StressParameters(IntEnum):
     HEALTH_REDUCE = 5
 
 class CookingParameters(IntEnum):
-    FULLNESS_INCREASE = 15
-    STRESS_REDUCE = 10
+    FULLNESS_INCREASE = 40
+    STRESS_REDUCE = 20
 
 class InvestParameters(IntEnum):
     MINIMUM_DEPOSIT = 100
@@ -177,4 +177,42 @@ class ROULETTE:
         "ODD": 2,
         'red': 2,
         'black': 2
+    }
+
+class DateParameters:
+    MINIMUM_RATE = 7
+    MAXIMUM_RATE = 10
+    AVERAGE_RATE = 9
+    CHANCE_UP_FOR_SELF = 10
+    CHANCE_DOWN_FOR_SELF = 20
+    STRENGTH_UP_CHANCE = 150
+    MONEY_UP_CHANCE = 1000
+    INTELLIGENCE_UP_CHANCE = 150
+    INTELLIGENCE_TALK = 100
+    NOT_TALK_CHANCE_DECREASE = 20
+    TALK_CHANCE_INCREASE = 10
+    NOT_TALK_INCREASE = 40
+    MINIMUM_MONEY = 200
+    MINIMUM_GIRL_CHANCE = 20
+    AVERAGE_GIRL_CHANCE = 30
+    MAXIMUM_GIRL_CHANCE = 40
+    location_chance = {
+        '1' : 0,
+        '2' : 10,
+        '3' : 20,
+    }
+    location_action = {
+        '1' : 'гулять по парку',
+        '2' : 'в кафе',
+        '3' : 'в ресторан',
+    }
+    phrase_variants = {
+        '1' : 'не переживай, я при бабках',
+        '2' : 'на жизнь хватает',
+        '3' : 'пока на мели',
+    }
+    location_money = {
+        '1' : 0,
+        '2' : 150,
+        '3' : 300,
     }

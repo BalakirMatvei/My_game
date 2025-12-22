@@ -1,6 +1,5 @@
 import os
 import pickle
-
 from class_man import Man
 import glob
 
@@ -18,6 +17,7 @@ ACTIONS_MENU = {
     "cook": "cook",
     "invest": "invest",
     "casino": "casino",
+    "date" : "date",
 }
 
 
@@ -44,7 +44,8 @@ while True:
               "study - пойти на учёбу           fight - участвовать в бою\n"
               "sleep - пойти спать              heal - полечиться у врача\n"
               "menu - открыть меню              invest - инвестировать\n"
-              "help - список действий           casino - пойти в казино")
+              "help - список действий           casino - пойти в казино\n"
+              "date - сходить на свидание")
         break
     else:
         played = input("новая игра или загрузить(Введите n или l):\n")
@@ -59,7 +60,8 @@ while True:
                   "study - пойти на учёбу           fight - участвовать в бою\n"
                   "sleep - пойти спать              heal - полечиться у врача\n"
                   "menu - открыть меню              invest - инвестировать\n"
-                  "help - список действий           casino - пойти в казино")
+                  "help - список действий           casino - пойти в казино\n"
+                  "date - сходить на свидание")
             break
         elif played == 'l':
             print(glob.glob('*.pkl'))
@@ -73,7 +75,8 @@ while True:
                   "study - пойти на учёбу           fight - участвовать в бою\n"
                   "sleep - пойти спать              heal - полечиться у врача\n"
                   "menu - открыть меню              invest - инвестировать\n"
-                  "help - список действий           casino - пойти в казино")
+                  "help - список действий           casino - пойти в казино\n"
+                  "date - сходить на свидание")
             break
         else:
             print(f'неизвестное действие - {played}')

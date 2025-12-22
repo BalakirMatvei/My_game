@@ -2,7 +2,7 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
     AgeParameters, BD_GIFT_MONEY, FightParameters, StressParameters, CookingParameters, InvestParameters, BJ_Cards, \
-    BJ_Points, ROULETTE
+    BJ_Points, ROULETTE, DateParameters
 
 import random
 import time
@@ -25,6 +25,8 @@ class Man:
         self.rang = "Bronze"
         self.age = 18
         self.stress = 0
+        self.single = True
+        self.girl_rate = 0
 
     def __str__(self):
         return f"{self.name}, возраст - {self.age}, сытость - {self.fullness}, hp - {self.health}" \
@@ -249,7 +251,8 @@ class Man:
               "study - пойти на учёбу           fight - участвовать в бою\n"
               "sleep - пойти спать              heal - полечиться у врача\n"
               "menu - открыть меню              invest - инвестировать\n"
-              "help - список действий           casino - пойти в казино")
+              "help - список действий           casino - пойти в казино\n"
+              "date - сходить на свидание")
 
     def heal(self):
         if self.money >= HealParameters.MONEY_REDUCE:
@@ -533,3 +536,127 @@ class Man:
             self.roulette()
         else:
             print(f"Неизвестное действие - {game}")
+
+    def date(self):
+        if self.single:
+            girl_rate = 0
+            chance = 0
+            if self.money >= DateParameters.MINIMUM_MONEY:
+                girl_rate = random.randint(DateParameters.MINIMUM_RATE, DateParameters.MAXIMUM_RATE)  # определение уровня девушки
+                print(f"вы пригласили на свидание девушку {girl_rate}/10")
+                if girl_rate < DateParameters.AVERAGE_RATE:
+                    chance = DateParameters.MAXIMUM_GIRL_CHANCE
+                elif girl_rate < DateParameters.MAXIMUM_RATE:
+                    chance = DateParameters.AVERAGE_GIRL_CHANCE
+                else:
+                    chance = DateParameters.MINIMUM_GIRL_CHANCE
+
+                while True:  # выбор места
+                    location = input("выберите место для свидания\nпарк     кафе    ресторан\n1/2/3\n:")
+                    if location == "1" or location == "2" or location == "3":
+                        chance += DateParameters.location_chance.get(location)
+                        break
+                    else:
+                        print(f"Неизвестное место - {location}")
+                print(f"-вы встретились и пошли {DateParameters.location_action.get(location)}")
+
+                if self.intelligence <= DateParameters.INTELLIGENCE_TALK:  # оценка интеллекта
+                    print("-но разговор не пошел:(")
+                    print("-вы весь вечер вытались найти темы для разговора и шутить, но вышло так себе")
+                    chance -= DateParameters.NOT_TALK_CHANCE_DECREASE
+                else:
+                    print("-и разговор завязался")
+                    print("-вы весь вечер блистали своим остроумием и шутили, она оценила ваш интеллект")
+                    chance += DateParameters.TALK_CHANCE_INCREASE
+
+                while True:  # разговор о деньгах
+                    print("-слово за слово и она спросила о вашем финансовом положении")
+                    print("Д: извини за вопрос, но сколько у тебя на счету?")
+                    money_action = input("честно сказать    увильнуть от ответа\n1/2\n:")
+                    if money_action == "1":
+                        print(f"Вы: {self.money}")
+                        if self.money >= DateParameters.MONEY_UP_CHANCE:
+                            print("Д: ого, а ты богач")
+                            chance += DateParameters.CHANCE_UP_FOR_SELF
+                        else:
+                            print("Д: не густо")
+                            chance -= DateParameters.CHANCE_DOWN_FOR_SELF
+                        break
+                    elif money_action == "2":
+                        phrase = input('что ей скажешь?\n'
+                                       'не переживай, я при бабках     1\n'
+                                       'на жизнь хватает               2\n'
+                                       'пока на мели                   3\n'
+                                       '1/2/3\n'
+                                       ':')
+                        print(f"Вы: {DateParameters.phrase_variants.get(phrase)}")
+                        if phrase == '1':
+                            decision = random.randint(1, 2)
+                            if decision == 1:
+                                print("-она вам поверила!")
+                                chance += DateParameters.CHANCE_UP_FOR_SELF
+                            else:
+                                print("-она посчитала вас очередным воздуханом:(")
+                                chance -= DateParameters.CHANCE_DOWN_FOR_SELF
+                            break
+                        elif phrase == '2':
+                            decision = random.randint(1, 2)
+                            if decision == 1:
+                                print("-она сочла это достойным ответом")
+                                chance += DateParameters.CHANCE_UP_FOR_SELF
+                            else:
+                                print("-она решила, что этого мало")
+                                chance -= DateParameters.CHANCE_DOWN_FOR_SELF
+                        else:
+                            print("-она расстроилась, но не подала виду")
+                            chance -= DateParameters.CHANCE_DOWN_FOR_SELF
+                            break
+                    else:
+                        print(f"неизвестное действие - {money_action}")
+
+                if location == '2':  # оплата
+                    self.money -= DateParameters.location_chance.get(location)
+                    print(
+                        f"-вы оплатили ваш счет в кафе, он вам вышел - {DateParameters.location_money.get(location).value}")
+                elif location == '3':
+                    self.money -= DateParameters.location_money.get(location)
+                    print(
+                        f"-вы оплатили ваш счет в ресторане, он вам вышел - {DateParameters.location_money.get(location)}")
+
+                while True:  # дорога домой
+                    home_action = input('провести ее домой      попращаться на месте\n1/2\n:')
+                    if home_action == "1":
+                        if self.strength >= DateParameters.STRENGTH_UP_CHANCE:
+                            print("-вы провели её домой, по дороге она оценила ваше спортивное телослжение:)")
+                            chance += DateParameters.CHANCE_UP_FOR_SELF
+                        else:
+                            print("-вы провели её домой")
+                        break
+                    elif home_action == "2":
+                        print("-вы попрощались на месте, из-за этого она не успела оценить вашу физическую форму ")
+                        break
+                    else:
+                        print(f"неизвестное действие - {home_action}")
+
+                result = random.randint(0, 100)  # итог
+                print("-уже дома вы написали ей и предложили отношения")
+                if result <= chance:
+                    self.single = False
+                    print(f'-она согласилась! вы восхитили ее и заполучили девушку {girl_rate}/10, поздравляю!')
+                    self.girl_rate = girl_rate
+                else:
+                    print("-вы ее не впечатлили и она вам отказала:(")
+            else:
+                print(f"у вас маловато денег, надо хотя бы - {DateParameters.MINIMUM_MONEY}")
+        else:
+            print(f"у вас уже есть девушка {self.girl_rate}/10")
+            break_up_action = input(f"-хотите расстаться со своей {self.girl_rate}/10\ny/n\n:")
+            while True:
+                if break_up_action == "y":
+                    self.single = True
+                    print("вы расстались")
+                    break
+                elif break_up_action == "n":
+                    break
+                else:
+                    print(f"неизвестное действие - {break_up_action}")
