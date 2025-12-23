@@ -131,3 +131,4 @@ while True:
             save(man, man.name)
         else:
             print(f"Неизвестное действие - {action}")
+

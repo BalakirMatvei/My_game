@@ -13,7 +13,7 @@ class Man:
     def __init__(self, name):
         self.name = name
         self.fullness = 80
-        self.money = 10000
+        self.money = 50
         self.health = 100
         self.food = 100
         self.strength = 50
@@ -27,13 +27,11 @@ class Man:
         self.stress = 0
         self.single = True
         self.girl_rate = 0
-        self.time = 12
-        self.day_period = 'day'
 
     def __str__(self):
         return f"{self.name}, возраст - {self.age}, сытость - {self.fullness}, hp - {self.health}" \
                f", баланс - {self.money}$, еда - {self.food}, " \
-               f"сила - {self.strength}, интеллект - {self.intelligence}, усталость - {self.tiredness}, Ранг - {self.rang} "
+               f"сила - {self.strength}, интеллект - {self.intelligence}, усталость - {self.tiredness}, Ранг - {self.rang}, холостяк - {self.single} "
 
     def print(self):
         print(self)
