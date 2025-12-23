@@ -126,8 +126,10 @@ while True:
                 if contin == "n":
                     print(f"Конец игры, до встречи, {character_name}!")
                     break
-                elif contin != "y":
-                    print(f"неизвестное действие - {contin}")
+                elif contin == 'y':
+                    continue
+                else:
+                    print(f"неизвестное действие -= {contin}")
             save(man, man.name)
         else:
             print(f"Неизвестное действие - {action}")
