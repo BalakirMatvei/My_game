@@ -293,7 +293,6 @@ class Man:
             print(f"У вас нет еды\nеды осталось - {self.food}")
 
     def invest(self):
-        profit = 0
         deposit = int(input(f"Введите сумму которую хотите инвестировать\n:"))
         if deposit >= InvestParameters.MINIMUM_DEPOSIT:
             if deposit <= self.money:
@@ -316,7 +315,6 @@ class Man:
         while True:
             self_cards = []
             diller_cards = []
-            bj_action = ''
             self_points = 0
             diller_points = 0
             win = False
@@ -329,7 +327,6 @@ class Man:
                 dep = int(input("Ставка\n:"))
                 if dep <= self.money:
                     self.money -= dep
-                    win = False
                     self_cards.append(BJ_Cards[random.randint(0, len(BJ_Cards) - 1)])
                     self_points += BJ_Points.get(self_cards[-1])
                     self_cards.append(BJ_Cards[random.randint(0, len(BJ_Cards) - 1)])
@@ -353,10 +350,6 @@ class Man:
                                 print(f'{self_cards}')
                                 print("Перебор:(")
                                 print(f"баланс - {self.money}$")
-                                self_cards = []
-                                diller_cards = []
-                                self_points = 0
-                                diller_points = 0
                                 break
                             else:
                                 print(f'Рука диллера - {diller_cards}, сумма - {diller_points}')
@@ -367,10 +360,6 @@ class Man:
                                 diller_points += BJ_Points.get(self_cards[-1])
                                 if diller_points > 21:
                                     print("У диллера перебор. Вы выиграли!")
-                                    self_cards = []
-                                    diller_cards = []
-                                    self_points = 0
-                                    diller_points = 0
                                     self.money += dep * 2
                                     win = True
                                     print(f"баланс - {self.money}$")
@@ -379,10 +368,6 @@ class Man:
                                     if self_points > diller_points:
                                         print(f"Ваши очки - {self_points}\nОчки диллера - {diller_points}")
                                         print("Вы выиграли!")
-                                        self_cards = []
-                                        diller_cards = []
-                                        self_points = 0
-                                        diller_points = 0
                                         win = True
                                         self.money += dep * 2
                                         print(f"баланс - {self.money}$")
@@ -390,20 +375,12 @@ class Man:
                                     elif self_points < diller_points:
                                         print(f"Ваши очки - {self_points}\nОчки диллера - {diller_points}")
                                         print("Вы проиграли:(")
-                                        self_cards = []
-                                        diller_cards = []
-                                        self_points = 0
-                                        diller_points = 0
                                         win = True
                                         print(f"баланс - {self.money}$")
                                         break
                                     else:
                                         print(f"Ваши очки - {self_points}\nОчки диллера - {diller_points}")
                                         print("ничья")
-                                        self_cards = []
-                                        diller_cards = []
-                                        self_points = 0
-                                        diller_points = 0
                                         self.money += dep
                                         win = True
                                         print(f"баланс - {self.money}$")
@@ -419,7 +396,6 @@ class Man:
 
     def roulette(self):
         while True:
-            roulette_action = ''
             print(f"баланс - {self.money}$")
             roulette_action = input('начать игру или выйти? s или e?\n:')
             if roulette_action == 'e':
@@ -507,18 +483,16 @@ class Man:
                 print(f"неизвестное действие - {roulette_action}")
 
     def casino(self):
-        game = input("Во что хотите поиграть? bj/roulette\n:")
+        game = input("Во что хотите поиграть? bj/rlt\n:")
         if game == 'bj':
             self.bj()
-        elif game == 'roulette':
+        elif game == 'rlt':
             self.roulette()
         else:
             print(f"Неизвестное действие - {game}")
 
     def date(self):
         if self.single:
-            girl_rate = 0
-            chance = 0
             if self.money >= DateParameters.MINIMUM_MONEY:
                 girl_rate = random.randint(DateParameters.MINIMUM_RATE, DateParameters.MAXIMUM_RATE)  # определение уровня девушки
                 print(f"вы пригласили на свидание девушку {girl_rate}/10")

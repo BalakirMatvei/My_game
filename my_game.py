@@ -1,8 +1,5 @@
 import os
 import pickle
-
-from duplicity.config import action
-
 from class_man import Man
 import glob
 from constants import TirednessParameters
@@ -10,7 +7,7 @@ from constants import TirednessParameters
 ACTIONS_MENU = {
     "self": "print",
     "eat": "eat",
-    "shopping": "shopping",
+    "shop": "shopping",
     "work": "work",
     "gym": "gym",
     "study": "study",
@@ -27,7 +24,7 @@ ACTIONS_MENU = {
 
 commands = ("Возможные действия:\n"
             "self - информация о себе         eat - поесть\n"
-            "cook - приготовить еды           shopping - купить еды\n"
+            "cook - приготовить еды           shop - купить еды\n"
             "work - пойти работать            gym - пойти в качалку\n"
             "study - пойти на учёбу           fight - участвовать в бою\n"
             "sleep - пойти спать              heal - полечиться у врача\n"
@@ -104,7 +101,7 @@ while True:
                     print(glob.glob("*.pkl"))
                     delete_save = input("Введите сохранение для удаления(до точки)\n:")
                     os.remove(delete_save + ".pkl")
-                    print(f"Сохранение {delete_save + ".pkl"} удалено")
+                    print(f"Сохранение {delete_save} удалено")
             else:
                 print(f"неизвестное действие - {menu_action}")
         if menu_action == 'exit':
@@ -129,14 +126,14 @@ while True:
                 break
             if getattr(man, 'rang') == "Lord":
                 print(f"Вы достигли вершины! Ранга Лорд, поздравляем")
-                contin = input("Желаете играть дальше? y/n\n:")
-                if contin == "n":
+                cont = input("Желаете играть дальше? y/n\n:")
+                if cont == "n":
                     print(f"Конец игры, до встречи, {character_name}!")
                     break
-                elif contin == 'y':
+                elif cont == 'y':
                     continue
                 else:
-                    print(f"неизвестное действие -= {contin}")
+                    print(f"неизвестное действие -= {cont}")
             save(man, man.name)
         else:
             print(f"Неизвестное действие - {action}")
