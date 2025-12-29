@@ -55,144 +55,127 @@ class Man:
             print(f'у вас нет денег:(\nбаланс - {self.money}$\nстоимость еды - {ShoppingParameters.MINIMUM_MONEY.value}$)')
 
     def gym(self):
-        if self.tiredness < TirednessParameters.MAXIMUM:
-            if self.age >= AgeParameters.OLD:
-                if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
-                    self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
-                    self.strength += AgeParameters.LIMITATION_STRENGTH_OLD
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
-                    self.stress += StressParameters.STRESS_INCREASE
-                    if self.stress > StressParameters.MAXIMUM:
-                        self.stress = StressParameters.MAXIMUM.value
-                    print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
-                else:
-                    print(
-                        f'Вы слишком голодны\nсытость - {self.fullness}\nсытости потратится - {AgeParameters.REDUCE_FULLNESS_OLDS.value}')
-            elif self.age >= AgeParameters.ADULT:
-                if self.fullness >= AgeParameters.REDUCE_FULLNESS_ADULTS:
-                    self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
-                    self.strength += AgeParameters.LIMITATION_STRENGTH_ADULT
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_ADULTS
-                    self.stress += StressParameters.STRESS_INCREASE
-                    if self.stress > StressParameters.MAXIMUM:
-                        self.stress = StressParameters.MAXIMUM.value
-                    print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
-                else:
-                    print(
-                        f'Вы слишком голодны\nсытость - {self.fullness}\nсытости потратится - {AgeParameters.REDUCE_FULLNESS_ADULTS.value}')
+        if self.age >= AgeParameters.OLD:
+            if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
+                self.strength += AgeParameters.LIMITATION_STRENGTH_OLD
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
+                self.stress += StressParameters.STRESS_INCREASE
+                if self.stress > StressParameters.MAXIMUM:
+                    self.stress = StressParameters.MAXIMUM.value
+                print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
             else:
-                if self.fullness >= GymParameters.REDUCE_FULLNESS:
-                    self.strength += GymParameters.INCREASE_STRENGTH
-                    self.fullness -= GymParameters.REDUCE_FULLNESS
-                    self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
-                    self.stress += StressParameters.STRESS_INCREASE
-                    if self.stress > StressParameters.MAXIMUM:
-                        self.stress = StressParameters.MAXIMUM.value
-                    print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
-                else:
-                    print(
-                        f'у вас нет сил:(\nсытость - {self.fullness}, сытости потратится - {GymParameters.REDUCE_FULLNESS.value})')
+                print(
+                    f'Вы слишком голодны\nсытость - {self.fullness}\nсытости потратится - {AgeParameters.REDUCE_FULLNESS_OLDS.value}')
+        elif self.age >= AgeParameters.ADULT:
+            if self.fullness >= AgeParameters.REDUCE_FULLNESS_ADULTS:
+                self.strength += AgeParameters.LIMITATION_STRENGTH_ADULT
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_ADULTS
+                self.stress += StressParameters.STRESS_INCREASE
+                if self.stress > StressParameters.MAXIMUM:
+                    self.stress = StressParameters.MAXIMUM.value
+                print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
+            else:
+                print(
+                    f'Вы слишком голодны\nсытость - {self.fullness}\nсытости потратится - {AgeParameters.REDUCE_FULLNESS_ADULTS.value}')
         else:
-            print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
-                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
+            if self.fullness >= GymParameters.REDUCE_FULLNESS:
+                self.strength += GymParameters.INCREASE_STRENGTH
+                self.fullness -= GymParameters.REDUCE_FULLNESS
+                self.stress += StressParameters.STRESS_INCREASE
+                if self.stress > StressParameters.MAXIMUM:
+                    self.stress = StressParameters.MAXIMUM.value
+                print(f'Вы стали сильнее!\nсила - {self.strength}\nсытость - {self.fullness}')
+            else:
+                print(
+                    f'у вас нет сил:(\nсытость - {self.fullness}, сытости потратится - {GymParameters.REDUCE_FULLNESS.value})')
 
     def work(self):
-        if self.tiredness < TirednessParameters.MAXIMUM:
-            self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
-            self.stress += StressParameters.STRESS_INCREASE
-            if self.stress > StressParameters.MAXIMUM:
-                self.stress = StressParameters.MAXIMUM.value
-            if self.stress == StressParameters.MAXIMUM.value:
-                self.health -= StressParameters.HEALTH_REDUCE.value
-            if self.intelligence >= IntelligenceLVL.EXTRA_HIGH:
-                self.money += SalaryParameters.EXTRA_HIGH
-            elif self.intelligence >= IntelligenceLVL.VERY_HIGH:
-                self.money += SalaryParameters.VERY_HIGH
-            elif self.intelligence >= IntelligenceLVL.HIGH:
-                self.money += SalaryParameters.HIGH
-            elif self.intelligence >= IntelligenceLVL.MEDIUM:
-                self.money += SalaryParameters.MEDIUM
-            else:
-                self.money += SalaryParameters.MINIMUM
-            if self.age >= AgeParameters.OLD:
-                if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
-                    print(f"Вы заработали денег!\nбаланс - {self.money}$\nсытость - {self.fullness}")
-                else:
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
-                    self.health -= WorkParameters.REDUCE_HEALTH
-                    if self.health <= 0:
-                        Man.death(self)
-                    else:
-                        print(f'Ого! Вы пошли на работу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nбаланс - {self.money}$')
-            elif self.age >= AgeParameters.ADULT:
-                if self.fullness >= AgeParameters.REDUCE_FULLNESS_ADULTS:
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_ADULTS
-                    print(f"Вы заработали денег!\nбаланс - {self.money}$\nсытость - {self.fullness}")
-                else:
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
-                    self.health -= WorkParameters.REDUCE_HEALTH
-                    if self.health <= 0:
-                        Man.death(self)
-                    else:
-                        print(f'Ого! Вы пошли на работу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nбаланс - {self.money}$')
-            else:
-                if self.fullness >= WorkParameters.REDUCE_FULLNESS:
-                    self.fullness -= WorkParameters.REDUCE_FULLNESS
-                    print(f"Вы заработали денег!\nбаланс - {self.money}$\nсытость - {self.fullness}")
-                else:
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
-                    self.health -= WorkParameters.REDUCE_HEALTH
-                    if self.health <= 0:
-                        Man.death(self)
-                    else:
-                        print(
-                            f'Ого! Вы пошли на работу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nбаланс - {self.money}$')
+        self.stress += StressParameters.STRESS_INCREASE
+        if self.stress > StressParameters.MAXIMUM:
+            self.stress = StressParameters.MAXIMUM.value
+        if self.stress == StressParameters.MAXIMUM.value:
+            self.health -= StressParameters.HEALTH_REDUCE.value
+        if self.intelligence >= IntelligenceLVL.EXTRA_HIGH:
+            self.money += SalaryParameters.EXTRA_HIGH
+        elif self.intelligence >= IntelligenceLVL.VERY_HIGH:
+            self.money += SalaryParameters.VERY_HIGH
+        elif self.intelligence >= IntelligenceLVL.HIGH:
+            self.money += SalaryParameters.HIGH
+        elif self.intelligence >= IntelligenceLVL.MEDIUM:
+            self.money += SalaryParameters.MEDIUM
         else:
-            print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
-                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
+            self.money += SalaryParameters.MINIMUM
+        if self.age >= AgeParameters.OLD:
+            if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
+                print(f"Вы заработали денег!\nбаланс - {self.money}$\nсытость - {self.fullness}")
+            else:
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
+                self.health -= WorkParameters.REDUCE_HEALTH
+                if self.health <= 0:
+                    Man.death(self)
+                else:
+                    print(f'Ого! Вы пошли на работу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nбаланс - {self.money}$')
+        elif self.age >= AgeParameters.ADULT:
+            if self.fullness >= AgeParameters.REDUCE_FULLNESS_ADULTS:
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_ADULTS
+                print(f"Вы заработали денег!\nбаланс - {self.money}$\nсытость - {self.fullness}")
+            else:
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
+                self.health -= WorkParameters.REDUCE_HEALTH
+                if self.health <= 0:
+                    Man.death(self)
+                else:
+                    print(f'Ого! Вы пошли на работу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nбаланс - {self.money}$')
+        else:
+            if self.fullness >= WorkParameters.REDUCE_FULLNESS:
+                self.fullness -= WorkParameters.REDUCE_FULLNESS
+                print(f"Вы заработали денег!\nбаланс - {self.money}$\nсытость - {self.fullness}")
+            else:
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
+                self.health -= WorkParameters.REDUCE_HEALTH
+                if self.health <= 0:
+                    Man.death(self)
+                else:
+                    print(
+                        f'Ого! Вы пошли на работу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nбаланс - {self.money}$')
 
     def study(self):
-        if self.tiredness < TirednessParameters.MAXIMUM:
-            self.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE
-            self.stress += StressParameters.STRESS_INCREASE
-            if self.stress > StressParameters.MAXIMUM:
-                self.stress = StressParameters.MAXIMUM.value
-            if self.stress == StressParameters.MAXIMUM.value:
-                self.health -= StudyParameters.REDUCE_HEALTH.value
-            if self.age >= AgeParameters.OLD:
-                if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
-                    self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
-                    print(f'Вы стали умнее!\nинтеллект - {self.intelligence}\nсытость - {self.fullness}')
-                else:
-                    self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
-                    self.health -= StudyParameters.REDUCE_HEALTH
-                    if self.health <= 0:
-                        Man.death(self)
-                    else:
-                        print(
-                            f'Ого! Вы пошли на учебу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nинтеллект - {self.intelligence}')
-            elif self.age >= AgeParameters.ADULT:
-                if self.fullness >= AgeParameters.REDUCE_FULLNESS_ADULTS:
-                    self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
-                    self.fullness -= AgeParameters.REDUCE_FULLNESS_ADULTS
-                    print(f'Вы стали умнее!\nинтеллект - {self.intelligence}\nсытость - {self.fullness}')
-                else:
-                    self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
-                    self.health -= StudyParameters.REDUCE_HEALTH
-                    if self.health <= 0:
-                        Man.death(self)
-                    else:
-                        print(
-                            f'Ого! Вы пошли на учебу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nинтеллект - {self.intelligence}')
+        self.stress += StressParameters.STRESS_INCREASE
+        if self.stress > StressParameters.MAXIMUM:
+            self.stress = StressParameters.MAXIMUM.value
+        if self.stress == StressParameters.MAXIMUM.value:
+            self.health -= StudyParameters.REDUCE_HEALTH.value
+        if self.age >= AgeParameters.OLD:
+            if self.fullness >= AgeParameters.REDUCE_FULLNESS_OLDS:
+                self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_OLDS
+                print(f'Вы стали умнее!\nинтеллект - {self.intelligence}\nсытость - {self.fullness}')
             else:
                 self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
-                self.fullness -= StudyParameters.REDUCE_FULLNESS
+                self.health -= StudyParameters.REDUCE_HEALTH
+                if self.health <= 0:
+                    Man.death(self)
+                else:
+                    print(
+                        f'Ого! Вы пошли на учебу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nинтеллект - {self.intelligence}')
+        elif self.age >= AgeParameters.ADULT:
+            if self.fullness >= AgeParameters.REDUCE_FULLNESS_ADULTS:
+                self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
+                self.fullness -= AgeParameters.REDUCE_FULLNESS_ADULTS
                 print(f'Вы стали умнее!\nинтеллект - {self.intelligence}\nсытость - {self.fullness}')
+            else:
+                self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
+                self.health -= StudyParameters.REDUCE_HEALTH
+                if self.health <= 0:
+                    Man.death(self)
+                else:
+                    print(
+                        f'Ого! Вы пошли на учебу несмотря на сильный голод, но потеряли hp\nhp - {self.health}\nинтеллект - {self.intelligence}')
         else:
-            print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
-                  f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\nheal - полечиться у врача")
+            self.intelligence += StudyParameters.INCREASE_INTELLIGENCE
+            self.fullness -= StudyParameters.REDUCE_FULLNESS
+            print(f'Вы стали умнее!\nинтеллект - {self.intelligence}\nсытость - {self.fullness}')
 
     def death(self):
         self.alive = False
@@ -267,12 +250,12 @@ class Man:
     def fight(self):
         if self.tiredness < TirednessParameters.MAXIMUM.value:
             if self.fullness >= FightParameters.MINIMUM_FULLNESS.value:
-                self.fullness -= FightParameters.FULLNESS_REDUCE
                 if self.strength >= FightParameters.STRENGTH_INCREASED_CHANCE:
                     if random.randint(0, 100) <= FightParameters.INCREASED_WIN_CHANCE:
                         self.money += FightParameters.MONEY_WIN
                         self.health = FightParameters.HEALTH_REDUCE_WIN.value
                         self.tiredness = TirednessParameters.MAXIMUM.value
+                        self.fullness -= FightParameters.FULLNESS_REDUCE
                         if self.health == 0:
                             self.health = FightParameters.HEALTH_AFTER_LOOSE.value
                         print(f"Вы выиграли бой местной лиги!!!\nВаш гонорар - {FightParameters.MONEY_WIN.value}$\nВы сильно устали, советуем поесть")
@@ -280,12 +263,14 @@ class Man:
                         self.money += FightParameters.MONEY_LOOSE
                         self.health = FightParameters.HEALTH_AFTER_LOOSE.value
                         self.stress += FightParameters.STRENGTH_INCREASED_CHANCE
+                        self.fullness -= FightParameters.FULLNESS_REDUCE
                         print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOSE.value}$\nВы сильно устали, советуем поесть")
                 elif self.strength >= FightParameters.MINIMUM_STRENGTH:
                     if random.randint(0, 100) <= FightParameters.DEFAULT_WIN_CHANCE:
                         self.money += FightParameters.MONEY_WIN
                         self.health -= FightParameters.HEALTH_REDUCE_WIN.value
                         self.tiredness = TirednessParameters.MAXIMUM.value
+                        self.fullness -= FightParameters.FULLNESS_REDUCE
                         if self.health == 0:
                             self.health = FightParameters.HEALTH_AFTER_LOOSE.value
                         print(f"Вы выиграли бой местной лиги!!!\nВаш гонорар - {FightParameters.MONEY_WIN.value}$\nВы сильно устали, советуем поесть")
@@ -293,6 +278,7 @@ class Man:
                         self.money += FightParameters.MONEY_LOOSE
                         self.health = FightParameters.HEALTH_AFTER_LOOSE.value
                         self.stress += FightParameters.STRESS_LOOSE
+                        self.fullness -= FightParameters.FULLNESS_REDUCE
                         print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOSE.value}$\nВы сильно устали, советуем поесть")
                 else:
                     print(f"Вы недостаточно сильны для участия в боях местной лиги:(\n"

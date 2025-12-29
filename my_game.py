@@ -2,6 +2,7 @@ import os
 import pickle
 from class_man import Man
 import glob
+from constants import TirednessParameters
 
 ACTIONS_MENU = {
     "self": "print",
@@ -21,6 +22,14 @@ ACTIONS_MENU = {
     "meditate" : "meditate",
     'read' : 'read',
 }
+
+tiredness_list = [
+    "gym",
+    "work",
+    "study",
+    "casino",
+    "date",
+]
 
 
 def save(man, file_name):
@@ -117,7 +126,17 @@ while True:
             break
     else:
         if action in ACTIONS_MENU:
-            getattr(man, ACTIONS_MENU[action])()
+            if action in tiredness_list:
+                if getattr(man, 'tiredness') < TirednessParameters.MAXIMUM.value:
+                    getattr(man, ACTIONS_MENU[action])()
+                    man.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE.value
+                else:
+                    print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
+                          f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\n"
+                          f"heal - полечиться у врача\nmeditate - помедитировать\ncook - приготовить еды\n"
+                          f"read - почитать книгу")
+            else:
+                getattr(man, ACTIONS_MENU[action])()
             if not getattr(man, 'alive'):
                 break
             if getattr(man, 'rang') == "Lord":
