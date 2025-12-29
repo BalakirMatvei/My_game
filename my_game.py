@@ -1,5 +1,8 @@
 import os
 import pickle
+
+from duplicity.config import action
+
 from class_man import Man
 import glob
 from constants import TirednessParameters
@@ -12,7 +15,6 @@ ACTIONS_MENU = {
     "gym": "gym",
     "study": "study",
     "sleep": "sleep",
-    "help": "commands",
     "heal": "heal",
     "fight": "fight",
     "cook": "cook",
@@ -22,6 +24,17 @@ ACTIONS_MENU = {
     "meditate" : "meditate",
     'read' : 'read',
 }
+
+commands = ("Возможные действия:\n"
+            "self - информация о себе         eat - поесть\n"
+            "cook - приготовить еды           shopping - купить еды\n"
+            "work - пойти работать            gym - пойти в качалку\n"
+            "study - пойти на учёбу           fight - участвовать в бою\n"
+            "sleep - пойти спать              heal - полечиться у врача\n"
+            "menu - открыть меню              invest - инвестировать\n"
+            "help - список действий           casino - пойти в казино\n"
+            "date - сходить на свидание       meditate - помедитировать\n"
+            "read - почитать книгу")
 
 tiredness_list = [
     "gym",
@@ -48,16 +61,7 @@ while True:
         character_name = input('Введите имя персонажа: ')
         print(f"Добро пожаловать, {character_name}")
         man = Man(character_name)
-        print("Возможные действия:\n"
-              "self - информация о себе         eat - поесть\n"
-              "cook - приготовить еды           shopping - купить еды\n"
-              "work - пойти работать            gym - пойти в качалку\n"
-              "study - пойти на учёбу           fight - участвовать в бою\n"
-              "sleep - пойти спать              heal - полечиться у врача\n"
-              "menu - открыть меню              invest - инвестировать\n"
-              "help - список действий           casino - пойти в казино\n"
-              "date - сходить на свидание       meditate - помедитировать\n"
-              "read - почитать книгу")
+        print(commands)
         break
     else:
         played = input("новая игра или загрузить(Введите n или l):\n")
@@ -65,32 +69,14 @@ while True:
             character_name = input('Введите имя персонажа: ')
             print(f"Добро пожаловать, {character_name}")
             man = Man(character_name)
-            print("Возможные действия:\n"
-                  "self - информация о себе         eat - поесть\n"
-                  "cook - приготовить еды           shopping - купить еды\n"
-                  "work - пойти работать            gym - пойти в качалку\n"
-                  "study - пойти на учёбу           fight - участвовать в бою\n"
-                  "sleep - пойти спать              heal - полечиться у врача\n"
-                  "menu - открыть меню              invest - инвестировать\n"
-                  "help - список действий           casino - пойти в казино\n"
-                  "date - сходить на свидание       meditate - помедитировать\n"
-                  "read - почитать книгу")
+            print(commands)
             break
         elif played == 'l':
             print(glob.glob('*.pkl'))
             file_name = input("Введите название сохранения до точки ")
             man = load(file_name)
             character_name = man.name
-            print("Возможные действия:\n"
-                  "self - информация о себе         eat - поесть\n"
-                  "cook - приготовить еды           shopping - купить еды\n"
-                  "work - пойти работать            gym - пойти в качалку\n"
-                  "study - пойти на учёбу           fight - участвовать в бою\n"
-                  "sleep - пойти спать              heal - полечиться у врача\n"
-                  "menu - открыть меню              invest - инвестировать\n"
-                  "help - список действий           casino - пойти в казино\n"
-                  "date - сходить на свидание       meditate - помедитировать\n"
-                  "read - почитать книгу")
+            print(commands)
             break
         else:
             print(f'неизвестное действие - {played}')
@@ -124,6 +110,8 @@ while True:
         if menu_action == 'exit':
             print(f"Конец игры, до встречи, {character_name}!")
             break
+    elif action == 'help':
+        print(commands)
     else:
         if action in ACTIONS_MENU:
             if action in tiredness_list:

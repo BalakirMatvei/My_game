@@ -226,17 +226,6 @@ class Man:
         else:
             self.health -= StressParameters.HEALTH_REDUCE.value
 
-    def commands(self):
-        print("Возможные действия:\n"
-              "self - информация о себе         eat - поесть\n"
-              "cook - приготовить еды           shopping - купить еды\n"
-              "work - пойти работать            gym - пойти в качалку\n"
-              "study - пойти на учёбу           fight - участвовать в бою\n"
-              "sleep - пойти спать              heal - полечиться у врача\n"
-              "menu - открыть меню              invest - инвестировать\n"
-              "help - список действий           casino - пойти в казино\n"
-              "date - сходить на свидание       meditate - помедитировать")
-
     def heal(self):
         if self.money >= HealParameters.MONEY_REDUCE:
             self.health += HealParameters.HEALTH_INCREASE
