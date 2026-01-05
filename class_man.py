@@ -1,3 +1,5 @@
+import os
+
 from constants import WorkParameters, EatParameters, IntelligenceLVL, \
     ShoppingParameters, GymParameters, StudyParameters, SleepParameters, \
     SalaryParameters, TirednessParameters, RangParameters, HealParameters, \
@@ -180,6 +182,7 @@ class Man:
     def death(self):
         self.alive = False
         print(f"Вы умерли:(\nДней прожито - {self.day_counter - 1}")
+        os.remove(self.name + ".pkl")
 
     def sleep(self):
         self.day_counter += 1
@@ -193,7 +196,7 @@ class Man:
             print(f"баланс - {self.money}")
         if self.money >= RangParameters.MONEY_LORD:
             self.r = 7
-        if self.money >= RangParameters.MONEY_GRANDMASTER:
+        elif self.money >= RangParameters.MONEY_GRANDMASTER:
             self.r = 6
         elif self.money >= RangParameters.MONEY_MASTER:
             self.r = 5
@@ -253,6 +256,7 @@ class Man:
                         self.health = FightParameters.HEALTH_AFTER_LOOSE.value
                         self.stress += FightParameters.STRENGTH_INCREASED_CHANCE
                         self.fullness -= FightParameters.FULLNESS_REDUCE
+                        self.tiredness = TirednessParameters.MAXIMUM.value
                         print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOSE.value}$\nВы сильно устали, советуем поесть")
                 elif self.strength >= FightParameters.MINIMUM_STRENGTH:
                     if random.randint(0, 100) <= FightParameters.DEFAULT_WIN_CHANCE:
@@ -266,6 +270,7 @@ class Man:
                     else:
                         self.money += FightParameters.MONEY_LOOSE
                         self.health = FightParameters.HEALTH_AFTER_LOOSE.value
+                        self.tiredness = TirednessParameters.MAXIMUM.value
                         self.stress += FightParameters.STRESS_LOOSE
                         self.fullness -= FightParameters.FULLNESS_REDUCE
                         print(f"Вы проиграли бой местной лиги:(\nВаш гонорар - {FightParameters.MONEY_LOOSE.value}$\nВы сильно устали, советуем поесть")
