@@ -9,13 +9,17 @@ from constants import WorkParameters, EatParameters, IntelligenceLVL, \
 import random
 import time
 
+from rich.console import Console
+from rich import print
+console = Console()
+
 class Man:
     RangList = ["Bronze", "Silver", "Gold", "Platinum", "Diamond", "Master", "Grandmaster", "Lord"]
 
     def __init__(self, name):
         self.name = name
         self.fullness = 80
-        self.money = 50
+        self.money = 49000
         self.health = 100
         self.food = 100
         self.strength = 50
@@ -410,11 +414,11 @@ class Man:
                 bet_list = []
                 dep_list = []
                 # print(f"баланс - {self.money}$")
-                print('    3', '6', '9', '12', '15', '18', '21', '24', '27', '30', '33', '36')
-                print('0', '2', '5', '8', '11', '14', '17', '20', '23', '26', '29', '32', '35')
-                print('    1', '4', '7', '10', '13', '16', '19', '22', '25', '28', '31', '34')
-                print('     1st 12      ', '    2nd 12     ', '       3rd 12')
-                print('1-18 ', '    EVEN    ', 'red     ', 'black', '    ODD  ', '   19-36')
+                console.print(' [red on white]3 [/][black on white]6 [/][red on white]9 [/][red on white]12 [/][black on white]15 [/][red on white]18 [/][red on white]21 [/][black on white]24 [/][red on white]27 [/][red on white]30 [/][black on white]33 [/][red on white]36[/]')
+                console.print('[green on white]0 [/][black on white]2 [/][red on white]5 [/][black on white]8 [/][black on white]11 [/][red on white]14 [/][black on white]17 [/][black on white]20 [/][red on white]23 [/][black on white]26 [/][black on white]29 [/][red on white]32 [/][black on white]35[/]')
+                console.print(' [red on white]1 [/][black on white]4 [/][red on white]7 [/][black on white]10 [/][black on white]13 [/][red on white]16 [/][red on white]19 [/][black on white]22 [/][red on white]25 [/][black on white]28 [/][black on white]31 [/][red on white]34[/]')
+                console.print('     1st 12      ', '    2nd 12     ', '       3rd 12')
+                console.print('1-18 ', '    EVEN    ', 'red     ', 'black', '    ODD  ', '   19-36')
                 while True:
                     print(f"баланс - {self.money}$")
                     bet = input('Выберите ставку: ')
@@ -441,13 +445,9 @@ class Man:
                 if len(bet_list) > 0:
                     spin_result = random.choice(ROULETTE.all_results)
                     print("Поехали!")
-                    time.sleep(1)
-                    print("spinning")
-                    time.sleep(1)
-                    print('spinning')
-                    time.sleep(1)
-                    print('spinning')
-                    time.sleep(1)
+                    with console.status("[bold green]spinning[/]", spinner='moon'):
+                        for i in range(3):
+                            time.sleep(1)
                     print(f"выпал номер {spin_result} {ROULETTE.colors.get(spin_result)}")
                     for num, i in enumerate(bet_list):
                         if i == '1st 12' and spin_result in ROULETTE.first_12:

@@ -3,6 +3,9 @@ import pickle
 from class_man import Man
 import glob
 from constants import TirednessParameters
+from rich.console import Console
+from rich import print
+console = Console()
 
 ACTIONS_MENU = {
     "self": "print",
@@ -22,16 +25,16 @@ ACTIONS_MENU = {
     'read' : 'read',
 }
 
-commands = ("Возможные действия:\n"
-            "self - информация о себе         eat - поесть\n"
-            "cook - приготовить еды           shop - купить еды\n"
-            "work - пойти работать            gym - пойти в качалку\n"
-            "study - пойти на учёбу           fight - участвовать в бою\n"
-            "sleep - пойти спать              heal - полечиться у врача\n"
-            "menu - открыть меню              invest - инвестировать\n"
-            "help - список действий           casino - пойти в казино\n"
-            "date - сходить на свидание       meditate - помедитировать\n"
-            "read - почитать книгу")
+commands = ("[italic purple]Возможные действия[/]:\n"
+            "[bold purple]self[/] - информация о себе         [bold purple]eat[/] - поесть\n"
+            "[bold purple]cook[/] - приготовить еды           [bold purple]shop[/] - купить еды\n"
+            "[bold purple]work[/] - пойти работать            [bold purple]gym[/] - пойти в качалку\n"
+            "[bold purple]study[/] - пойти на учёбу           [bold purple]fight[/] - участвовать в бою\n"
+            "[bold purple]sleep[/] - пойти спать              [bold purple]heal[/] - полечиться у врача\n"
+            "[bold purple]menu[/] - открыть меню              [bold purple]invest[/] - инвестировать\n"
+            "[bold purple]help[/] - список действий           [bold purple]casino[/] - пойти в казино\n"
+            "[bold purple]date[/] - сходить на свидание       [bold purple]meditate[/] - помедитировать\n"
+            "[bold purple]read[/] - почитать книгу")
 
 tiredness_list = [
     "gym",
@@ -56,15 +59,15 @@ while True:
     saves = glob.glob('*.pkl')
     if len(saves) == 0:
         character_name = input('Введите имя персонажа: ')
-        print(f"Добро пожаловать, {character_name}")
+        print(f"[bold]Добро пожаловать, {character_name}[/]")
         man = Man(character_name)
         print(commands)
         break
     else:
-        played = input("новая игра или загрузить(Введите n или l):\n")
+        played = console.input("[bold blue]новая игра[/] или [bold green]загрузить[/](Введите [bold blue]n[/] или [bold green]l[/]):\n")
         if played == 'n':
             character_name = input('Введите имя персонажа: ')
-            print(f"Добро пожаловать, {character_name}")
+            print(f"[bold]Добро пожаловать, {character_name}[/]")
             man = Man(character_name)
             print(commands)
             break
@@ -76,7 +79,7 @@ while True:
             print(commands)
             break
         else:
-            print(f'неизвестное действие - {played}')
+            print(f'[bold red]неизвестное действие[/] - {played}')
 
 action = ""
 menu_action = ""
@@ -103,7 +106,7 @@ while True:
                     os.remove(delete_save + ".pkl")
                     print(f"Сохранение {delete_save} удалено")
             else:
-                print(f"неизвестное действие - {menu_action}")
+                print(f"[bold red]неизвестное действие[/] - {menu_action}")
         if menu_action == 'exit':
             print(f"Конец игры, до встречи, {character_name}!")
             break
@@ -116,16 +119,16 @@ while True:
                     getattr(man, ACTIONS_MENU[action])()
                     man.tiredness += TirednessParameters.FOR_SINGLE_ACTIVE.value
                 else:
-                    print(f"Вы слишком устали сегодня\nОставшиеся действия на сегодня:\n"
-                          f"self - информация о себе\neat - поесть\nshopping - купить еды\nsleep - пойти спать\n"
-                          f"heal - полечиться у врача\nmeditate - помедитировать\ncook - приготовить еды\n"
-                          f"read - почитать книгу")
+                    print(f"[red]Вы слишком устали сегодня[/]\nОставшиеся действия на сегодня:\n"
+                          f"[bold purple]self[/] - информация о себе\n[bold purple]eat[/] - поесть\n[bold purple]shopping[/] - купить еды\n[bold purple]sleep[/] - пойти спать\n"
+                          f"[bold purple]heal[/] - полечиться у врача\n[bold purple]meditate[/] - помедитировать\n[bold purple]cook[/] - приготовить еды\n"
+                          f"[bold purple]read[/] - почитать книгу")
             else:
                 getattr(man, ACTIONS_MENU[action])()
             if not getattr(man, 'alive'):
                 break
             if getattr(man, 'rang') == "Lord":
-                print(f"Вы достигли вершины! Ранга Лорд, поздравляем")
+                print(f"[bold yellow on blue]Вы достигли вершины![/] Ранга Лорд, [bold blink]поздравляем[/]")
                 cont = input("Желаете играть дальше? y/n\n:")
                 if cont == "n":
                     print(f"Конец игры, до встречи, {character_name}!")
@@ -133,8 +136,8 @@ while True:
                 elif cont == 'y':
                     continue
                 else:
-                    print(f"неизвестное действие -= {cont}")
+                    print(f"[bold red]неизвестное действие[/] -= {cont}")
             save(man, man.name)
         else:
-            print(f"Неизвестное действие - {action}")
+            print(f"[bold red]неизвестное действие[/] - {action}")
 
